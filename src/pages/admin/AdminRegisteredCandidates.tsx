@@ -18,8 +18,8 @@ const initialData = [
   },
   {
     id: "CAN-2002",
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Rohan Gupta",
+    email: "rohan.gupta@example.com",
     mobile: "+1 555-0202",
     primarySkill: "Node.js",
     experience: "6 Years",

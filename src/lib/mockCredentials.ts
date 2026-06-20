@@ -24,31 +24,31 @@ export const mockUsers: MockUser[] = [
     email: "recruiter@company.com",
     passwordHash: "recruiter123",
     role: "Recruiter",
-    name: "Alice Recruiter"
+    name: "Aarohi Recruiter"
   },
   {
     email: "vendor@agency.com",
     passwordHash: "vendor123",
     role: "Vendor",
-    name: "Bob Vendor"
+    name: "Rahul Vendor"
   },
   {
     email: "candidate@gmail.com",
     passwordHash: "candidate123",
     role: "Candidate",
-    name: "Charlie Candidate"
+    name: "Vikram Candidate"
   },
   {
     email: "interviewer@iaminterviewed.com",
     passwordHash: "interviewer123",
     role: "Interviewer",
-    name: "David Interviewer"
+    name: "Deepak Interviewer"
   },
   {
     email: "client@company.com",
     passwordHash: "client123",
     role: "Client",
-    name: "Eve Client"
+    name: "Esha Client"
   }
 ];
 

@@ -142,7 +142,7 @@ export default function Login() {
                       ? "border-destructive/50 focus-visible:ring-destructive/20 focus-visible:border-destructive" 
                       : "border-input focus-visible:ring-primary focus-visible:border-primary"
                   }`}
-                  placeholder="name@example.com"
+                  placeholder="rahul@example.com"
                 />
               </div>
 

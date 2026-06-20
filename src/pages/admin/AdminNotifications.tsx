@@ -14,7 +14,7 @@ export default function AdminNotifications() {
       id: 2, 
       type: "alert",
       title: "Interview Escalation", 
-      message: "Client 'Aether' has raised an escalation for an interview with candidate John Doe regarding technical issues.", 
+      message: "Client 'Aether' has raised an escalation for an interview with candidate Rohan Gupta regarding technical issues.", 
       time: "1 hour ago", 
       read: false 
     },

@@ -2,11 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, RotateCcw, Pencil, History, Building2, Calendar, Briefcase, FileText, X, AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { SearchableSelect } from "../../components/SearchableSelect";
+import { getStatusBadgeClasses } from "../../../lib/utils";
 
 const initialData = [
-  { id: "ESC-001", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-25", status: "Open", comments: "Client requested an urgent update on candidate pipeline.", escalatedBy: "Alice Johnson", escalatedDate: "2026-06-18" },
-  { id: "ESC-002", jobCode: "JC-1002", company: "Aether Solutions", followUpDate: "2026-06-21", status: "In Progress", comments: "Discussing technical requirements mismatch.", escalatedBy: "Bob Smith", escalatedDate: "2026-06-15" },
-  { id: "ESC-003", jobCode: "JC-1005", company: "Quantum Analytics", followUpDate: "2026-06-20", status: "Resolved", comments: "Interview scheduled for top 3 candidates.", escalatedBy: "Alice Johnson", escalatedDate: "2026-06-10" },
+  { id: "ESC-001", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-25", status: "Open", comments: "Client requested an urgent update on candidate pipeline.", escalatedBy: "Kavya Nair", escalatedDate: "2026-06-18" },
+  { id: "ESC-002", jobCode: "JC-1002", company: "Aether Solutions", followUpDate: "2026-06-21", status: "In Progress", comments: "Discussing technical requirements mismatch.", escalatedBy: "Sameer Verma", escalatedDate: "2026-06-15" },
+  { id: "ESC-003", jobCode: "JC-1005", company: "Quantum Analytics", followUpDate: "2026-06-20", status: "Resolved", comments: "Interview scheduled for top 3 candidates.", escalatedBy: "Kavya Nair", escalatedDate: "2026-06-10" },
 ];
 
 const mockCompanies = [
@@ -22,8 +23,8 @@ const mockJobCodes = [
 ];
 
 const mockHistoryData = [
-  { id: "H-001", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-25", comments: "Client requested an urgent update on candidate pipeline.", escalatedBy: "Alice Johnson", escalatedDate: "2026-06-18", status: "Open" },
-  { id: "H-002", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-20", comments: "Initial escalation received regarding slow pipeline.", escalatedBy: "Alice Johnson", escalatedDate: "2026-06-15", status: "Resolved" },
+  { id: "H-001", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-25", comments: "Client requested an urgent update on candidate pipeline.", escalatedBy: "Kavya Nair", escalatedDate: "2026-06-18", status: "Open" },
+  { id: "H-002", jobCode: "JC-1001", company: "TechNova Inc.", followUpDate: "2026-06-20", comments: "Initial escalation received regarding slow pipeline.", escalatedBy: "Kavya Nair", escalatedDate: "2026-06-15", status: "Resolved" },
 ];
 
 export default function AdminClientEscalation() {
@@ -196,11 +197,7 @@ export default function AdminClientEscalation() {
                     {item.followUpDate}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                      item.status === 'Open' ? 'bg-amber-100 text-amber-700' :
-                      item.status === 'In Progress' ? 'bg-indigo-100 text-indigo-700' :
-                      'bg-emerald-100 text-emerald-700'
-                    }`}>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusBadgeClasses(item.status)}`}>
                       {item.status}
                     </span>
                   </td>
@@ -397,11 +394,7 @@ export default function AdminClientEscalation() {
                           <tr key={item.id} className="hover:bg-primary/5 transition-colors">
                             <td className="px-4 py-4 text-muted-foreground whitespace-nowrap">{item.followUpDate}</td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                                item.status === 'Open' ? 'bg-amber-100 text-amber-700' :
-                                item.status === 'In Progress' ? 'bg-indigo-100 text-indigo-700' :
-                                'bg-emerald-100 text-emerald-700'
-                              }`}>
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusBadgeClasses(item.status)}`}>
                                 {item.status}
                               </span>
                             </td>

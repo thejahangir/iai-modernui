@@ -2,40 +2,41 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, RotateCcw, Download, Eye, CalendarClock, Pencil, History, X, Video, AlertCircle, Clock, CheckCircle2, FileText, User, Copy } from "lucide-react";
 import { SearchableSelect } from "../../components/SearchableSelect";
+import { getStatusBadgeClasses } from "../../../lib/utils";
 
 const initialData = [
   { 
     id: "INT-1001", 
     date: "2026-06-25", 
-    name: "John Doe", 
-    email: "john.doe@example.com",
+    name: "Rohan Gupta", 
+    email: "rohan.gupta@example.com",
     mobile: "+1 555-0101",
-    interviewer: "Alice Smith",
+    interviewer: "Aarohi Patel",
     primarySkill: "React", 
     rating: "4.5/5",
     company: "TechNova Inc.",
-    recruiter: "Bob Johnson",
+    recruiter: "Rahul Joshi",
     designation: "Frontend Engineer",
     status: "Scheduled", 
     isScheduled: true,
-    adminName: "Sarah Connor",
+    adminName: "Neha Mehta",
     meetingLink: "https://zoom.us/j/123456789"
   },
   { 
     id: "INT-1002", 
     date: "2026-06-26", 
-    name: "Jane Roe", 
-    email: "jane.roe@example.com",
+    name: "Sneha Reddy", 
+    email: "sneha.reddy@example.com",
     mobile: "+1 555-0202",
-    interviewer: "Mike Davis",
+    interviewer: "Amit Kumar",
     primarySkill: "Node.js", 
     rating: "Pending",
     company: "Aether Solutions",
-    recruiter: "Alice Smith",
+    recruiter: "Aarohi Patel",
     designation: "Backend Engineer",
     status: "Pending", 
     isScheduled: false,
-    adminName: "Sarah Connor",
+    adminName: "Neha Mehta",
     meetingLink: ""
   },
 ];
@@ -46,8 +47,8 @@ const mockSkills = [
 ];
 
 const mockInterviewers = [
-  { id: "I1", name: "Alice Smith" },
-  { id: "I2", name: "Mike Davis" },
+  { id: "I1", name: "Aarohi Patel" },
+  { id: "I2", name: "Amit Kumar" },
 ];
 
 const mockLocations = [
@@ -57,8 +58,8 @@ const mockLocations = [
 ];
 
 const mockHistoryData = [
-  { id: "H-1", candidateName: "John Doe", statusName: "Scheduled", followUpDt: "2026-06-20", comments: "Confirmed availability.", createdDate: "2026-06-18" },
-  { id: "H-2", candidateName: "John Doe", statusName: "Pending", followUpDt: "2026-06-18", comments: "Sent invite.", createdDate: "2026-06-15" },
+  { id: "H-1", candidateName: "Rohan Gupta", statusName: "Scheduled", followUpDt: "2026-06-20", comments: "Confirmed availability.", createdDate: "2026-06-18" },
+  { id: "H-2", candidateName: "Rohan Gupta", statusName: "Pending", followUpDt: "2026-06-18", comments: "Sent invite.", createdDate: "2026-06-15" },
 ];
 
 export default function AdminInterviews() {
@@ -277,11 +278,7 @@ export default function AdminInterviews() {
                     {item.primarySkill}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                      item.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                      item.status === 'Scheduled' ? 'bg-indigo-100 text-indigo-700' :
-                      'bg-emerald-100 text-emerald-700'
-                    }`}>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusBadgeClasses(item.status)}`}>
                       {item.status}
                     </span>
                   </td>
@@ -685,11 +682,7 @@ export default function AdminInterviews() {
                           <tr key={item.id} className="hover:bg-primary/5 transition-colors">
                             <td className="px-6 py-4 font-medium text-foreground whitespace-nowrap">{item.candidateName}</td>
                             <td className="px-4 py-4 whitespace-nowrap">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                                item.statusName === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                                item.statusName === 'Scheduled' ? 'bg-indigo-100 text-indigo-700' :
-                                'bg-emerald-100 text-emerald-700'
-                              }`}>
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusBadgeClasses(item.statusName)}`}>
                                 {item.statusName}
                               </span>
                             </td>

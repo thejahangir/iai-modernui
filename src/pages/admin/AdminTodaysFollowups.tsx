@@ -2,13 +2,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, RotateCcw, Pencil, History, Trash2, CalendarCheck, CalendarIcon, X } from "lucide-react";
 import { SearchableSelect } from "../../components/SearchableSelect";
+import { getStatusBadgeClasses } from "../../../lib/utils";
 
 // Mock data
 const mockData = [
   {
     id: "FU-1001",
-    candidateName: "John Doe",
-    email: "john@example.com",
+    candidateName: "Rohan Gupta",
+    email: "rohan@example.com",
     mobile: "+1 234 567 8900",
     status: "Pending",
     followUpDate: "2026-06-20",
@@ -18,8 +19,8 @@ const mockData = [
   },
   {
     id: "FU-1002",
-    candidateName: "Jane Smith",
-    email: "jane@example.com",
+    candidateName: "Priya Desai",
+    email: "priya@example.com",
     mobile: "+1 987 654 3210",
     status: "In Progress",
     followUpDate: "2026-06-20",
@@ -30,8 +31,8 @@ const mockData = [
 ];
 
 const mockHistory = [
-  { id: 1, candidateName: "John Doe", status: "Called", followUpDate: "2026-06-18", comments: "Candidate requested call back tomorrow.", createdDate: "2026-06-18" },
-  { id: 2, candidateName: "John Doe", status: "Emailed", followUpDate: "2026-06-15", comments: "Sent initial follow up email.", createdDate: "2026-06-15" }
+  { id: 1, candidateName: "Rohan Gupta", status: "Called", followUpDate: "2026-06-18", comments: "Candidate requested call back tomorrow.", createdDate: "2026-06-18" },
+  { id: 2, candidateName: "Rohan Gupta", status: "Emailed", followUpDate: "2026-06-15", comments: "Sent initial follow up email.", createdDate: "2026-06-15" }
 ];
 
 const STATUS_OPTIONS = ["Pending", "In Progress", "Completed", "Called", "Emailed", "No Answer"];
@@ -183,11 +184,7 @@ export default function AdminTodaysFollowups() {
                     <td className="px-6 py-4 text-muted-foreground">{item.email}</td>
                     <td className="px-6 py-4 text-muted-foreground">{item.mobile}</td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold border ${
-                        item.status === 'Completed' ? 'bg-green-500/10 text-green-600 border-green-500/20' :
-                        item.status === 'In Progress' ? 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20' :
-                        'bg-amber-500/10 text-amber-600 border-amber-500/20'
-                      }`}>
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold border ${getStatusBadgeClasses(item.status)}`}>
                         {item.status}
                       </span>
                     </td>
@@ -391,7 +388,7 @@ export default function AdminTodaysFollowups() {
                           <tr key={hist.id} className="hover:bg-primary/5 transition-colors group">
                             <td className="px-6 py-4 font-bold text-foreground">{hist.candidateName}</td>
                             <td className="px-6 py-4">
-                              <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold border bg-secondary/50 border-border/50 text-foreground">
+                              <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold border ${getStatusBadgeClasses(hist.status)}`}>
                                 {hist.status}
                               </span>
                             </td>

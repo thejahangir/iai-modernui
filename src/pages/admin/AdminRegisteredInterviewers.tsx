@@ -7,7 +7,7 @@ import { SearchableSelect } from "../../components/SearchableSelect";
 const mockData = [
   {
     id: "INT-1001",
-    name: "Alice Smith",
+    name: "Aarohi Patel",
     primarySkill: "React",
     experience: "5 Years",
     verified: "Yes",
@@ -15,7 +15,7 @@ const mockData = [
   },
   {
     id: "INT-1002",
-    name: "Bob Johnson",
+    name: "Rahul Joshi",
     primarySkill: "React",
     experience: "3 Years",
     verified: "No",
@@ -23,7 +23,7 @@ const mockData = [
   },
   {
     id: "INT-1003",
-    name: "Charlie Davis",
+    name: "Chandan Das",
     primarySkill: "Python",
     experience: "7 Years",
     verified: "Yes",

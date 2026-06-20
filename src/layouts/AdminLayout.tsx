@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
@@ -114,6 +114,16 @@ export default function AdminLayout() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Automatically expand the menu group that contains the active route
+    const activeParent = navItems.find(item => 
+      item.subItems?.some(sub => location.pathname === sub.href || location.pathname.startsWith(`${sub.href}/`))
+    );
+    if (activeParent && openMenu !== activeParent.title) {
+      setOpenMenu(activeParent.title);
+    }
+  }, [location.pathname]);
 
   const toggleMenu = (title: string) => {
     setOpenMenu(prev => prev === title ? null : title);

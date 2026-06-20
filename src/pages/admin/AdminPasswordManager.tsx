@@ -4,11 +4,11 @@ import { Search, RotateCcw, Copy, CheckCircle2, Shield, User, Mail, X } from "lu
 import { SearchableSelect } from "../../components/SearchableSelect";
 
 const initialData = [
-  { id: "UID-1001", name: "Alice Johnson", email: "alice@example.com", password: "Password123!", role: "Admin" },
-  { id: "UID-1002", name: "Bob Smith", email: "bob@example.com", password: "SecurePass!456", role: "Interviewer" },
-  { id: "UID-1003", name: "Charlie Davis", email: "charlie@example.com", password: "MyPassword@789", role: "Candidate" },
-  { id: "UID-1004", name: "Diana Prince", email: "diana@example.com", password: "WonderWoman!1", role: "Interviewer" },
-  { id: "UID-1005", name: "Evan Wright", email: "evan@example.com", password: "Evan#Pass2026", role: "Admin" },
+  { id: "UID-1001", name: "Kavya Nair", email: "kavya@example.com", password: "Password123!", role: "Admin" },
+  { id: "UID-1002", name: "Sameer Verma", email: "sameer@example.com", password: "SecurePass!456", role: "Interviewer" },
+  { id: "UID-1003", name: "Chandan Das", email: "chandan@example.com", password: "MyPassword@789", role: "Candidate" },
+  { id: "UID-1004", name: "Divya Prasad", email: "divya@example.com", password: "WonderWoman!1", role: "Interviewer" },
+  { id: "UID-1005", name: "Eshaan Wadhwa", email: "eshaan@example.com", password: "Evan#Pass2026", role: "Admin" },
 ];
 
 export default function AdminPasswordManager() {

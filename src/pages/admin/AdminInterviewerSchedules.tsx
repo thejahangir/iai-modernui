@@ -7,8 +7,8 @@ import { SearchableSelect } from "../../components/SearchableSelect";
 const SKILLS = ["React", "Python", "Node.js", "Java", "DevOps"];
 
 const INTERVIEWERS_BY_SKILL: Record<string, string[]> = {
-  "React": ["Alice Smith", "Bob Johnson"],
-  "Python": ["Charlie Davis", "Dave Wilson"],
+  "React": ["Aarohi Patel", "Rahul Joshi"],
+  "Python": ["Chandan Das", "Dave Wilson"],
   "Node.js": ["Eve Brown", "Frank Miller"],
   "Java": ["Grace Hopper", "James Gosling"],
   "DevOps": ["Linus Torvalds", "Ken Thompson"],
@@ -32,14 +32,14 @@ const TIME_SLOTS = [
 const initialData = [
   {
     id: "SCH-1001",
-    interviewer: "Alice Smith",
+    interviewer: "Aarohi Patel",
     primarySkill: "React",
     date: "2025-11-15",
     timeSlot: "10:00 AM - 10:30 AM",
   },
   {
     id: "SCH-1002",
-    interviewer: "Charlie Davis",
+    interviewer: "Chandan Das",
     primarySkill: "Python",
     date: "2025-11-16",
     timeSlot: "02:30 PM - 03:00 PM",

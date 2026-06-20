@@ -4,9 +4,9 @@ import { Search, RotateCcw, Pencil, Trash2, Building2, Plus, RefreshCw, X, Shiel
 import { SearchableSelect } from "../../components/SearchableSelect";
 
 const initialData = [
-  { id: "USR-001", name: "Alice Johnson", email: "alice@example.com", mobile: "+1 234 567 8900", role: "Admin" },
-  { id: "USR-002", name: "Bob Smith", email: "bob@example.com", mobile: "+1 345 678 9012", role: "Interviewer" },
-  { id: "USR-003", name: "Charlie Davis", email: "charlie@example.com", mobile: "+1 456 789 0123", role: "Candidate" },
+  { id: "USR-001", name: "Kavya Nair", email: "kavya@example.com", mobile: "+1 234 567 8900", role: "Admin" },
+  { id: "USR-002", name: "Sameer Verma", email: "sameer@example.com", mobile: "+1 345 678 9012", role: "Interviewer" },
+  { id: "USR-003", name: "Chandan Das", email: "chandan@example.com", mobile: "+1 456 789 0123", role: "Candidate" },
 ];
 
 const mockCompanies = [
@@ -332,7 +332,7 @@ export default function AdminAddIAIUser() {
                           ? "border-destructive/50 focus:ring-destructive/20 focus:border-destructive" 
                           : "border-border/50 focus:ring-primary/20 focus:border-primary"
                       }`}
-                      placeholder="e.g. jane@example.com"
+                      placeholder="e.g. priya@example.com"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
