@@ -99,8 +99,8 @@ const navItems: NavItem[] = [
 ];
 
 const mockNotifications = [
-  { id: 1, title: "New Company Registered", message: "TechNova Inc. has completed the onboarding process.", time: "10m ago", read: false },
-  { id: 2, title: "Interview Escalation", message: "Client 'Aether' has raised an escalation for an interview.", time: "1h ago", read: false },
+  { id: 1, title: "New Company Registered", message: "Wipro has completed the onboarding process.", time: "10m ago", read: false },
+  { id: 2, title: "Interview Escalation", message: "Client 'TCS' has raised an escalation for an interview.", time: "1h ago", read: false },
   { id: 3, title: "System Update", message: "The platform will be down for maintenance at 2 AM EST.", time: "3h ago", read: true },
   { id: 4, title: "Candidate Follow-up", message: "Reminder to follow up with Sarah Jenkins.", time: "5h ago", read: true },
 ];

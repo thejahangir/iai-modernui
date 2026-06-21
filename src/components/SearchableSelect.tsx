@@ -152,6 +152,22 @@ export function SearchableSelect({
 
               {/* Options List */}
               <div className="max-h-60 overflow-y-auto p-1 flex-1">
+                {/* Clear Selection Option */}
+                {value && (
+                  <>
+                    <div
+                      onClick={() => {
+                        onChange("");
+                        setIsOpen(false);
+                      }}
+                      className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors text-muted-foreground hover:bg-secondary/80 italic"
+                    >
+                      <span className="truncate">{placeholder}</span>
+                    </div>
+                    <div className="h-px bg-border/50 mx-2 my-1" />
+                  </>
+                )}
+
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((option) => (
                     <div

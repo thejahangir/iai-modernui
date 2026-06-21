@@ -6,7 +6,7 @@ export default function AdminNotifications() {
       id: 1, 
       type: "success",
       title: "New Company Registered", 
-      message: "TechNova Inc. has completed the onboarding process and is pending final approval.", 
+      message: "Wipro has completed the onboarding process and is pending final approval.", 
       time: "10 minutes ago", 
       read: false 
     },
@@ -14,7 +14,7 @@ export default function AdminNotifications() {
       id: 2, 
       type: "alert",
       title: "Interview Escalation", 
-      message: "Client 'Aether' has raised an escalation for an interview with candidate Rohan Gupta regarding technical issues.", 
+      message: "Client 'TCS' has raised an escalation for an interview with candidate Rohan Gupta regarding technical issues.", 
       time: "1 hour ago", 
       read: false 
     },

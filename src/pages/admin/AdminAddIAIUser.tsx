@@ -10,22 +10,24 @@ const initialData = [
 ];
 
 const mockCompanies = [
-  { id: "C-01", name: "TechNova Inc." },
-  { id: "C-02", name: "Aether Solutions" },
-  { id: "C-03", name: "Quantum Analytics" },
+  { id: "C-01", name: "Wipro" },
+  { id: "C-02", name: "TCS" },
+  { id: "C-03", name: "Infosys" },
 ];
 
 export default function AdminAddIAIUser() {
   const [data, setData] = useState(initialData);
-  const [filters, setFilters] = useState({ role: "" });
+  const [filters, setFilters] = useState({ search: "", role: "" });
   
   // Modals state
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [showMapModal, setShowMapModal] = useState(false);
   const [showConfirmMapModal, setShowConfirmMapModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
   const [newUser, setNewUser] = useState({ name: "", email: "", mobile: "", role: "" });
+  const [editingUser, setEditingUser] = useState({ id: "", name: "", email: "", mobile: "", role: "" });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [selectedCompany, setSelectedCompany] = useState("");
 
@@ -34,7 +36,7 @@ export default function AdminAddIAIUser() {
   };
 
   const handleReset = () => {
-    setFilters({ role: "" });
+    setFilters({ search: "", role: "" });
   };
 
   const handleReload = () => {
@@ -66,6 +68,30 @@ export default function AdminAddIAIUser() {
     setNewUser({ name: "", email: "", mobile: "", role: "" });
   };
 
+  const handleEditUserSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const errors: Record<string, string> = {};
+    if (!editingUser.name.trim()) errors.name = "Name is required.";
+    if (!editingUser.email.trim()) {
+      errors.email = "Email ID is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editingUser.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!editingUser.mobile.trim()) errors.mobile = "Mobile No is required.";
+    if (!editingUser.role) errors.role = "Role is required.";
+    
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setFormErrors({});
+    console.log("Updating user:", editingUser);
+    setData(data.map(u => u.id === editingUser.id ? editingUser : u));
+    setShowEditModal(false);
+  };
+
   const handleMapCompanySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCompany) {
@@ -94,71 +120,70 @@ export default function AdminAddIAIUser() {
 
       {/* Toolbar / Search Panel */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative bg-white rounded-2xl shadow-sm border border-border/50 hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+        className="bg-white rounded-3xl p-5 border border-border/50 shadow-sm flex flex-col xl:flex-row gap-5 items-center justify-between"
       >
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/10 via-primary/40 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-2xl" />
-        
-        <div className="p-4 flex flex-col xl:flex-row items-center gap-4">
-          <div className="flex items-center gap-2 shrink-0 w-full xl:w-auto">
-            <div className="p-1.5 bg-primary/10 rounded-lg text-primary">
-              <Search className="w-4 h-4" />
-            </div>
-            <h3 className="font-bold text-sm text-foreground">Filters</h3>
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto flex-1">
+          <div className="relative w-full sm:w-[320px]">
+            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <input 
+              type="text" 
+              placeholder="Search by Name or Email..."
+              value={filters.search}
+              onChange={(e) => setFilters({...filters, search: e.target.value})}
+              className="w-full h-[48px] pl-11 pr-4 rounded-2xl bg-secondary/30 border-transparent focus:bg-white focus:border-primary/30 focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium placeholder:font-normal"
+            />
           </div>
+          <div className="hidden sm:block w-px h-10 bg-border/50 mx-2" />
+          <div className="relative w-full sm:w-[240px]">
+            <SearchableSelect
+              options={[
+                { label: "All Roles", value: "" },
+                { label: "Admin", value: "Admin" },
+                { label: "Interviewer", value: "Interviewer" },
+                { label: "Candidate", value: "Candidate" }
+              ]}
+              value={filters.role}
+              onChange={(val) => setFilters({ ...filters, role: val })}
+              placeholder="All Roles"
+              icon={<Shield className="w-4 h-4 text-muted-foreground" />}
+              className="w-full h-[48px] rounded-2xl bg-secondary/30 border-transparent focus:bg-white"
+            />
+          </div>
+          <button 
+            onClick={handleSearch}
+            className="flex items-center justify-center gap-2 h-[48px] px-6 bg-primary text-white text-sm font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95 w-full sm:w-auto"
+          >
+            <Search className="w-4 h-4" />
+            Search
+          </button>
+        </div>
 
-          <div className="flex-1 w-full flex items-center max-w-sm">
-            {/* Role Filter */}
-            <div className="relative group/input w-full">
-              <SearchableSelect
-                options={[
-                  { label: "All Roles", value: "" },
-                  { label: "Admin", value: "Admin" },
-                  { label: "Interviewer", value: "Interviewer" },
-                  { label: "Candidate", value: "Candidate" }
-                ]}
-                value={filters.role}
-                onChange={(val) => setFilters({ role: val })}
-                placeholder="All Roles"
-                icon={<Shield className="w-4 h-4 text-muted-foreground" />}
-                className="w-full h-10"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0 w-full xl:w-auto justify-end flex-wrap">
-            <button 
-              onClick={handleReset}
-              className="flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground hover:text-foreground rounded-xl transition-all hover:bg-secondary active:scale-95"
-              title="Reset Filters"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={handleSearch}
-              className="flex items-center gap-2 h-10 px-5 bg-primary text-white text-sm font-bold rounded-xl shadow-sm shadow-primary/20 hover:bg-primary/90 transition-all hover:shadow-md hover:shadow-primary/30 active:scale-95"
-            >
-              Search
-            </button>
-            
-            <div className="w-px h-6 bg-border/50 mx-2 hidden sm:block" />
-            
-            <button 
-              onClick={handleReload}
-              className="flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground hover:text-[#00A94B] rounded-xl transition-all hover:bg-[#00A94B]/10 active:scale-95"
-              title="Reload Data"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 h-10 px-4 bg-[#00A94B] text-white text-sm font-bold rounded-xl shadow-sm hover:bg-[#00A94B]/90 transition-all active:scale-95"
-            >
-              <Plus className="w-4 h-4" />
-              Add User
-            </button>
-          </div>
+        <div className="flex items-center gap-3 w-full xl:w-auto justify-end shrink-0 border-t xl:border-t-0 xl:border-l border-border/50 pt-4 xl:pt-0 xl:pl-5">
+          <button 
+            onClick={handleReset}
+            className="flex items-center justify-center gap-2 h-[48px] px-5 bg-secondary text-muted-foreground hover:text-foreground text-sm font-bold rounded-2xl hover:bg-black/5 transition-all shrink-0 active:scale-95"
+            title="Reset Filters"
+          >
+            <RotateCcw className="w-4 h-4" />
+            Reset
+          </button>
+          <button 
+            onClick={handleReload}
+            className="flex items-center justify-center w-[48px] h-[48px] bg-secondary text-muted-foreground hover:text-[#00A94B] rounded-2xl transition-all hover:bg-[#00A94B]/10 shrink-0 active:scale-95"
+            title="Reload Data"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </button>
+          <div className="w-px h-8 bg-border/50 mx-1 hidden sm:block" />
+          <button 
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center justify-center gap-2 h-[48px] px-6 bg-[#00A94B] text-white text-sm font-bold rounded-2xl shadow-lg shadow-[#00A94B]/20 hover:bg-[#00A94B]/90 transition-all active:scale-95 flex-1 sm:flex-none"
+          >
+            <Plus className="w-5 h-5" />
+            Add User
+          </button>
         </div>
       </motion.div>
 
@@ -223,6 +248,11 @@ export default function AdminAddIAIUser() {
                         <Building2 className="w-4 h-4" />
                       </button>
                       <button 
+                        onClick={() => {
+                          setEditingUser(item);
+                          setFormErrors({});
+                          setShowEditModal(true);
+                        }}
                         className="p-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
                         title="Edit User"
                       >
@@ -421,6 +451,191 @@ export default function AdminAddIAIUser() {
                     className="px-6 py-2 text-sm font-bold text-white bg-primary hover:bg-primary/90 rounded-xl shadow-sm transition-colors"
                   >
                     Save User
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Edit User Modal */}
+      <AnimatePresence>
+        {showEditModal && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+              onClick={() => setShowEditModal(false)}
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-white rounded-2xl shadow-2xl z-[101] border border-border/50"
+            >
+              <div className="flex items-center justify-between p-6 border-b border-border/50">
+                <h3 className="text-xl font-bold font-heading text-foreground">Edit User</h3>
+                <button 
+                  onClick={() => setShowEditModal(false)}
+                  className="p-2 rounded-xl hover:bg-secondary text-muted-foreground transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleEditUserSubmit} noValidate>
+                <div className="p-6 space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Name</label>
+                      <AnimatePresence>
+                        {formErrors.name && (
+                          <motion.span 
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 10 }}
+                            className="text-[11px] text-destructive font-medium"
+                          >
+                            {formErrors.name}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    <input 
+                      type="text" 
+                      value={editingUser.name}
+                      onChange={e => {
+                        setEditingUser({...editingUser, name: e.target.value});
+                        if (formErrors.name) setFormErrors({...formErrors, name: ""});
+                      }}
+                      className={`w-full px-4 py-2.5 bg-secondary/30 border rounded-xl text-sm focus:outline-none focus:ring-2 transition-all ${
+                        formErrors.name 
+                          ? "border-destructive/50 focus:ring-destructive/20 focus:border-destructive" 
+                          : "border-border/50 focus:ring-primary/20 focus:border-primary"
+                      }`}
+                      placeholder="e.g. Jane Doe"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Email ID</label>
+                      <AnimatePresence>
+                        {formErrors.email && (
+                          <motion.span 
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 10 }}
+                            className="text-[11px] text-destructive font-medium"
+                          >
+                            {formErrors.email}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    <input 
+                      type="email" 
+                      value={editingUser.email}
+                      onChange={e => {
+                        setEditingUser({...editingUser, email: e.target.value});
+                        if (formErrors.email) setFormErrors({...formErrors, email: ""});
+                      }}
+                      className={`w-full px-4 py-2.5 bg-secondary/30 border rounded-xl text-sm focus:outline-none focus:ring-2 transition-all ${
+                        formErrors.email 
+                          ? "border-destructive/50 focus:ring-destructive/20 focus:border-destructive" 
+                          : "border-border/50 focus:ring-primary/20 focus:border-primary"
+                      }`}
+                      placeholder="e.g. priya@example.com"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Mobile No</label>
+                        <AnimatePresence>
+                          {formErrors.mobile && (
+                            <motion.span 
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: 10 }}
+                              className="text-[11px] text-destructive font-medium truncate max-w-[50%]"
+                              title={formErrors.mobile}
+                            >
+                              Required
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                      <input 
+                        type="tel" 
+                        value={editingUser.mobile}
+                        onChange={e => {
+                          setEditingUser({...editingUser, mobile: e.target.value});
+                          if (formErrors.mobile) setFormErrors({...formErrors, mobile: ""});
+                        }}
+                        className={`w-full px-4 py-2.5 bg-secondary/30 border rounded-xl text-sm focus:outline-none focus:ring-2 transition-all ${
+                          formErrors.mobile 
+                            ? "border-destructive/50 focus:ring-destructive/20 focus:border-destructive" 
+                            : "border-border/50 focus:ring-primary/20 focus:border-primary"
+                        }`}
+                        placeholder="e.g. +1 234 567 8900"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Role</label>
+                        <AnimatePresence>
+                          {formErrors.role && (
+                            <motion.span 
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: 10 }}
+                              className="text-[11px] text-destructive font-medium"
+                            >
+                              Required
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                      <div className={`rounded-xl border transition-all ${
+                        formErrors.role 
+                          ? "border-destructive/50 ring-2 ring-destructive/20" 
+                          : "border-transparent"
+                      }`}>
+                        <SearchableSelect
+                          options={[
+                            { label: "Admin", value: "Admin" },
+                            { label: "Interviewer", value: "Interviewer" },
+                            { label: "Candidate", value: "Candidate" }
+                          ]}
+                          value={editingUser.role}
+                          onChange={val => {
+                            setEditingUser({...editingUser, role: val});
+                            if (formErrors.role) setFormErrors({...formErrors, role: ""});
+                          }}
+                          placeholder="Select Role"
+                          className="w-full h-[42px]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-secondary/50 px-6 py-4 flex justify-end gap-3 border-t border-border/50 rounded-b-2xl">
+                  <button 
+                    type="button"
+                    onClick={() => setShowEditModal(false)}
+                    className="px-4 py-2 text-sm font-bold text-muted-foreground hover:text-foreground hover:bg-black/5 rounded-xl transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    className="px-6 py-2 text-sm font-bold text-white bg-primary hover:bg-primary/90 rounded-xl shadow-sm transition-colors"
+                  >
+                    Update User
                   </button>
                 </div>
               </form>

@@ -24,6 +24,9 @@ import AdminAddProfiles from "./pages/admin/AdminAddProfiles";
 import AdminAllProfiles from "./pages/admin/AdminAllProfiles";
 import AdminPostJob from "./pages/admin/AdminPostJob";
 import AdminInterviewProcess from "./pages/admin/AdminInterviewProcess";
+import AdminCompanyOnBoard from "./pages/admin/AdminCompanyOnBoard";
+import AdminProfilesDashboard from "./pages/admin/AdminProfilesDashboard";
+import AdminReleaseCandidates from "./pages/admin/AdminReleaseCandidates";
 
 export default function App() {
   return (
@@ -54,6 +57,9 @@ export default function App() {
             <Route path="company/all" element={<AdminAllProfiles />} />
             <Route path="company/post" element={<AdminPostJob />} />
             <Route path="company/interview-process" element={<AdminInterviewProcess />} />
+            <Route path="company/onboard" element={<AdminCompanyOnBoard />} />
+            <Route path="company/profiles" element={<AdminProfilesDashboard />} />
+            <Route path="company/release" element={<AdminReleaseCandidates />} />
             {/* Catch-all for other admin routes currently */}
             <Route path="*" element={<div className="p-8 text-center text-muted-foreground"><h2 className="text-2xl font-bold mb-2">Coming Soon</h2><p>This admin page is under construction.</p></div>} />
           </Route>

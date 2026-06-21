@@ -33,8 +33,8 @@ const chartData = [
 ];
 
 const recentActivity = [
-  { id: 1, action: "New Company Profile", target: "TechNova Inc.", time: "10 mins ago", status: "success" },
-  { id: 2, action: "Escalation Raised", target: "Client: Aether", time: "1 hr ago", status: "danger" },
+  { id: 1, action: "New Company Profile", target: "Wipro", time: "10 mins ago", status: "success" },
+  { id: 2, action: "Escalation Raised", target: "Client: TCS", time: "1 hr ago", status: "danger" },
   { id: 3, action: "Interview Completed", target: "Alex Rivera (Frontend)", time: "2 hrs ago", status: "success" },
   { id: 4, action: "Candidate Rejected", target: "Sarah Jenkins", time: "3 hrs ago", status: "warning" },
   { id: 5, action: "Self Registration", target: "Marcus Thorne", time: "4 hrs ago", status: "info" },

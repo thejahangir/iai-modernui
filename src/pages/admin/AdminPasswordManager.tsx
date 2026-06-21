@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, RotateCcw, Copy, CheckCircle2, Shield, User, Mail, X } from "lucide-react";
+import { Search, RotateCcw, Copy, CheckCircle2, Shield, User, Mail, X, Trash2, AlertTriangle } from "lucide-react";
 import { SearchableSelect } from "../../components/SearchableSelect";
 
 const initialData = [
@@ -12,8 +12,9 @@ const initialData = [
 ];
 
 export default function AdminPasswordManager() {
-  const [data] = useState(initialData);
+  const [data, setData] = useState(initialData);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const [filters, setFilters] = useState({
     role: "",
@@ -25,6 +26,13 @@ export default function AdminPasswordManager() {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleDelete = () => {
+    if (deleteConfirmId) {
+      setData(data.filter(item => item.id !== deleteConfirmId));
+      setDeleteConfirmId(null);
+    }
   };
 
   const handleSearch = () => {
@@ -179,6 +187,7 @@ export default function AdminPasswordManager() {
                 <th className="px-6 py-4 font-bold tracking-widest">Name</th>
                 <th className="px-6 py-4 font-bold tracking-widest">Email ID</th>
                 <th className="px-6 py-4 font-bold tracking-widest">Password</th>
+                <th className="px-6 py-4 font-bold tracking-widest text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/50">
@@ -215,6 +224,15 @@ export default function AdminPasswordManager() {
                       </button>
                     </div>
                   </td>
+                  <td className="px-6 py-4 text-right">
+                    <button
+                      onClick={() => setDeleteConfirmId(item.id)}
+                      className="p-1.5 rounded-lg text-red-500/70 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                      title="Delete User"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -222,6 +240,46 @@ export default function AdminPasswordManager() {
         </div>
         )}
       </motion.div>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirmId && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+                    <AlertTriangle className="w-6 h-6 text-red-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">Delete Password Record</h3>
+                </div>
+                <p className="text-muted-foreground">
+                  Are you sure you want to delete this record? This action cannot be undone.
+                </p>
+              </div>
+              <div className="p-4 bg-secondary/50 flex justify-end gap-3 border-t border-border/50">
+                <button
+                  onClick={() => setDeleteConfirmId(null)}
+                  className="px-4 py-2 text-sm font-medium text-foreground bg-white border border-border/50 rounded-xl hover:bg-secondary transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="px-4 py-2 text-sm font-bold text-white bg-red-600 rounded-xl shadow-sm shadow-red-600/20 hover:bg-red-700 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

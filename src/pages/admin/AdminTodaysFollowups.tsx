@@ -13,7 +13,7 @@ const mockData = [
     mobile: "+1 234 567 8900",
     status: "Pending",
     followUpDate: "2026-06-20",
-    company: "Acme Corp",
+    company: "Tech Mahindra",
     jobCode: "DEV-123",
     updatedOn: "2026-06-19",
   },
@@ -24,7 +24,7 @@ const mockData = [
     mobile: "+1 987 654 3210",
     status: "In Progress",
     followUpDate: "2026-06-20",
-    company: "TechNova",
+    company: "Wipro",
     jobCode: "UX-456",
     updatedOn: "2026-06-18",
   }

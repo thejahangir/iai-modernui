@@ -1,11 +1,28 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Pencil, Plus, RotateCcw, X, Code2, Trash2, AlertTriangle } from "lucide-react";
+import { Pencil, Plus, RotateCcw, X, Code2, Trash2, AlertTriangle, Search, FileText } from "lucide-react";
 
 const initialData = [
   { id: "PS-001", name: "React", description: "Frontend JavaScript library for building user interfaces" },
   { id: "PS-002", name: "Node.js", description: "JavaScript runtime built on Chrome's V8 JavaScript engine" },
   { id: "PS-003", name: "Python", description: "High-level, general-purpose programming language" },
+  { id: "PS-004", name: "Java", description: "Class-based, object-oriented programming language" },
+  { id: "PS-005", name: "C++", description: "General-purpose programming language with object-oriented features" },
+  { id: "PS-006", name: "Go", description: "Statically typed, compiled programming language designed at Google" },
+  { id: "PS-007", name: "Ruby on Rails", description: "Server-side web application framework written in Ruby" },
+  { id: "PS-008", name: "Angular", description: "TypeScript-based free and open-source web application framework" },
+  { id: "PS-009", name: "Vue.js", description: "Progressive JavaScript framework for building user interfaces" },
+  { id: "PS-010", name: "Docker", description: "Set of platform as a service products that use OS-level virtualization" },
+  { id: "PS-011", name: "Kubernetes", description: "Open-source container orchestration system for automating software deployment" },
+  { id: "PS-012", name: "AWS", description: "Comprehensive and broadly adopted cloud computing platform" },
+  { id: "PS-013", name: "Azure", description: "Cloud computing service created by Microsoft for building, testing, deploying, and managing applications" },
+  { id: "PS-014", name: "TypeScript", description: "Strict syntactical superset of JavaScript and adds optional static typing to the language" },
+  { id: "PS-015", name: "SQL", description: "Domain-specific language used in programming and designed for managing data held in a relational database" },
+  { id: "PS-016", name: "MongoDB", description: "Source-available cross-platform document-oriented database program" },
+  { id: "PS-017", name: "Redis", description: "In-memory data structure store, used as a distributed, in-memory key–value database" },
+  { id: "PS-018", name: "GraphQL", description: "Data query and manipulation language for APIs, and a runtime for fulfilling queries with existing data" },
+  { id: "PS-019", name: "Swift", description: "Powerful and intuitive programming language for macOS, iOS, watchOS, tvOS and beyond" },
+  { id: "PS-020", name: "Kotlin", description: "Cross-platform, statically typed, general-purpose programming language with type inference" }
 ];
 
 export default function AdminPrimarySkills() {
@@ -14,9 +31,15 @@ export default function AdminPrimarySkills() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
   
   const [form, setForm] = useState({ name: "", description: "" });
   const [formErrors, setFormErrors] = useState({ name: "", description: "" });
+
+  const filteredData = data.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleReload = () => {
     // In a real app, this would fetch data from the server
@@ -71,115 +94,148 @@ export default function AdminPrimarySkills() {
   };
 
   return (
-    <div className="space-y-6 relative">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="space-y-6 md:space-y-8 relative pb-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-bold font-heading text-foreground tracking-tight">Primary Skills</h2>
-          <p className="text-muted-foreground mt-1">Manage core technical skills and their descriptions.</p>
+          <h2 className="text-2xl md:text-3xl font-bold font-heading text-foreground tracking-tight">Primary Skills</h2>
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">Manage core technical skills and their descriptions.</p>
         </div>
       </div>
 
-      {/* Toolbar */}
+      {/* KPI & Toolbar Section */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white p-4 rounded-2xl shadow-sm border border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4"
+        className="grid grid-cols-1 md:grid-cols-12 gap-4"
       >
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-primary/10 rounded-lg text-primary">
-            <Code2 className="w-5 h-5" />
+        {/* KPI Card */}
+        <div className="md:col-span-4 lg:col-span-3 bg-gradient-to-br from-primary/5 to-white p-5 rounded-3xl border border-primary/10 shadow-sm relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform">
+            <Code2 className="w-20 h-20 text-primary" />
           </div>
-          <h3 className="font-bold text-foreground">Skills Management</h3>
+          <div className="relative z-10">
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Total Skills
+            </p>
+            <h3 className="text-4xl font-black text-foreground">{data.length}</h3>
+          </div>
         </div>
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <button 
-            onClick={handleReload}
-            className="flex items-center justify-center gap-2 h-10 px-4 bg-secondary text-secondary-foreground text-sm font-bold rounded-xl hover:bg-black/5 transition-all"
-            title="Reload Data"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span className="hidden sm:inline">Reload</span>
-          </button>
-          <button 
-            onClick={() => {
-              setForm({ name: "", description: "" });
-              setFormErrors({ name: "", description: "" });
-              setShowAddModal(true);
-            }}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 h-10 px-5 bg-primary text-white text-sm font-bold rounded-xl shadow-sm shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
-          >
-            <Plus className="w-4 h-4 shrink-0" />
-            Add Primary Skill
-          </button>
+
+        {/* Toolbar */}
+        <div className="md:col-span-8 lg:col-span-9 bg-white/80 backdrop-blur-xl p-4 rounded-3xl shadow-sm border border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="relative w-full sm:max-w-md group/input">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground group-focus-within/input:text-primary transition-colors">
+              <Search className="w-5 h-5" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search skills or descriptions..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full h-12 pl-11 pr-4 bg-secondary/30 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all text-foreground"
+            />
+          </div>
+          
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <button 
+              onClick={handleReload}
+              className="flex items-center justify-center gap-2 h-12 px-5 bg-secondary text-secondary-foreground text-sm font-bold rounded-2xl hover:bg-black/5 transition-all active:scale-95 shrink-0"
+              title="Reload Data"
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={() => {
+                setForm({ name: "", description: "" });
+                setFormErrors({ name: "", description: "" });
+                setShowAddModal(true);
+              }}
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white text-sm font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
+            >
+              <Plus className="w-5 h-5 shrink-0" />
+              Add Skill
+            </button>
+          </div>
         </div>
       </motion.div>
 
-      {/* Data Grid */}
+      {/* Grid View */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white rounded-2xl border border-border/50 shadow-sm overflow-hidden hover:shadow-lg hover:border-primary/20 transition-all duration-300"
       >
-        {data.length === 0 ? (
-          <div className="p-16 flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4">
-              <Code2 className="w-8 h-8 text-muted-foreground" />
-            </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">No Data Yet</h3>
-            <p className="text-muted-foreground max-w-sm">No primary skills found matching your criteria.</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-            <thead className="text-xs text-muted-foreground uppercase bg-secondary/50 border-b border-border/50">
-              <tr>
-                <th className="px-6 py-4 font-bold tracking-widest w-1/4">Primary Skills</th>
-                <th className="px-6 py-4 font-bold tracking-widest">Description</th>
-                <th className="px-6 py-4 font-bold tracking-widest text-right w-24">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/50">
-              {data.map((item) => (
-                <tr key={item.id} className="hover:bg-primary/5 transition-colors group">
-                  <td className="px-6 py-4 font-bold text-foreground">
-                    {item.name}
-                  </td>
-                  <td className="px-6 py-4 text-muted-foreground">
-                    {item.description}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button 
-                        onClick={() => {
-                          setSelectedSkill(item);
-                          setForm({ name: item.name, description: item.description });
-                          setFormErrors({ name: "", description: "" });
-                          setShowEditModal(true);
-                        }}
-                        className="p-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
-                        title="Edit Skill"
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </button>
-                      <button 
-                        onClick={() => {
-                          setSelectedSkill(item);
-                          setShowDeleteModal(true);
-                        }}
-                        className="p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-colors"
-                        title="Delete Skill"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+        <AnimatePresence>
+          {filteredData.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-16 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-border/50"
+            >
+              <div className="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center mb-6">
+                <Code2 className="w-10 h-10 text-muted-foreground" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-2">No Skills Found</h3>
+              <p className="text-muted-foreground max-w-sm">We couldn't find any primary skills matching your search criteria. Try adjusting your filters or add a new skill.</p>
+            </motion.div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
+              {filteredData.map((item) => (
+                <motion.div 
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="bg-white rounded-2xl p-4 border border-border/50 shadow-sm hover:shadow-md transition-all group flex gap-3 items-start"
+                >
+                  <div className="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+                    <Code2 className="w-5 h-5" />
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start gap-2">
+                      <div>
+                        <h4 className="text-base font-bold text-foreground line-clamp-1" title={item.name}>{item.name}</h4>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">{item.id}</p>
+                      </div>
+                      
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 -mt-1 -mr-1">
+                        <button 
+                          onClick={() => {
+                            setSelectedSkill(item);
+                            setForm({ name: item.name, description: item.description });
+                            setFormErrors({ name: "", description: "" });
+                            setShowEditModal(true);
+                          }}
+                          className="p-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
+                          title="Edit Skill"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            setSelectedSkill(item);
+                            setShowDeleteModal(true);
+                          }}
+                          className="p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-colors"
+                          title="Delete Skill"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
-                  </td>
-                </tr>
+
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-2 leading-relaxed" title={item.description}>
+                      {item.description || "No description provided."}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
-            </tbody>
-          </table>
-        </div>
-        )}
+            </div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Add Modal */}

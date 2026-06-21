@@ -7,9 +7,9 @@ import { SearchableSelect } from "../../components/SearchableSelect";
 import { getStatusBadgeClasses } from "../../../lib/utils";
 
 const MOCK_COMPANIES = [
-  { label: "TechNova Inc.", value: "technova" },
-  { label: "Aether Solutions", value: "aether" },
-  { label: "Quantum Analytics", value: "quantum" },
+  { label: "Wipro", value: "wipro" },
+  { label: "TCS", value: "tcs" },
+  { label: "Infosys", value: "infosys" },
 ];
 
 const MOCK_RECRUITERS = [
@@ -43,8 +43,8 @@ const MOCK_VENDORS = [
 ];
 
 const MOCK_ESCALATIONS = [
-  { id: "e1", jobCode: "REQ-2023-001", company: "TechNova Inc.", followUpDt: "2026-Jun-25", status: "Open", comments: "Candidate not responding to emails", escalatedBy: "Rohan Gupta", escalatedDt: "2026-Jun-18" },
-  { id: "e2", jobCode: "REQ-2023-001", company: "TechNova Inc.", followUpDt: "2026-Jun-22", status: "Closed", comments: "Issue resolved, candidate finally replied and rescheduled the interview.", escalatedBy: "Priya Desai", escalatedDt: "2026-Jun-15" },
+  { id: "e1", jobCode: "REQ-2023-001", company: "Wipro", followUpDt: "2026-Jun-25", status: "Open", comments: "Candidate not responding to emails", escalatedBy: "Rohan Gupta", escalatedDt: "2026-Jun-18" },
+  { id: "e2", jobCode: "REQ-2023-001", company: "Wipro", followUpDt: "2026-Jun-22", status: "Closed", comments: "Issue resolved, candidate finally replied and rescheduled the interview.", escalatedBy: "Priya Desai", escalatedDt: "2026-Jun-15" },
 ];
 
 const initialData = [
@@ -954,7 +954,7 @@ export default function AdminPostJob() {
                         {escalationJob.jobCode}
                       </span>
                       <span className="text-sm font-bold text-foreground">{escalationJob.jobTitle}</span>
-                      <span className="text-xs font-bold text-muted-foreground bg-primary/5 px-2 py-0.5 rounded border border-primary/10 text-primary">TechNova Inc.</span>
+                      <span className="text-xs font-bold text-muted-foreground bg-primary/5 px-2 py-0.5 rounded border border-primary/10 text-primary">Wipro</span>
                     </div>
                   </div>
                 </div>
@@ -1019,7 +1019,7 @@ export default function AdminPostJob() {
                           const newEsc = {
                             id: "e" + Date.now(),
                             jobCode: escalationJob.jobCode,
-                            company: "TechNova Inc.",
+                            company: "Wipro",
                             followUpDt: "2026-Jun-25",
                             status: newEscalationStatus,
                             comments: newEscalationComments,

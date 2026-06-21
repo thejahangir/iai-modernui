@@ -1,34 +1,36 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Pencil, Plus, RotateCcw, X, Code2, Trash2, Map, LayoutList, AlertTriangle } from "lucide-react";
+import { Pencil, Plus, RotateCcw, X, Code2, Trash2, Map, LayoutList, AlertTriangle, Search } from "lucide-react";
 import { SearchableSelect } from "../../components/SearchableSelect";
 
 const mockPrimarySkills = [
   { id: "PS-001", name: "React" },
   { id: "PS-002", name: "Node.js" },
   { id: "PS-003", name: "Python" },
+  { id: "PS-004", name: "Java" },
+  { id: "PS-008", name: "Angular" },
 ];
 
 const initialData = [
   { 
-    id: "SS-001", 
-    primarySkillId: "PS-001", 
-    primarySkillName: "React", 
-    name: "React Hooks", 
-    description: "Advanced hook usage and custom hooks",
-    topics: [
-      { id: "T-001", name: "useEffect", description: "Side effects in function components" },
-      { id: "T-002", name: "useState", description: "State management in function components" }
-    ]
+    id: "SS-001", primarySkillId: "PS-001", primarySkillName: "React", name: "React Hooks", 
+    description: "Advanced hook usage and custom hooks", topics: [{ id: "T-001", name: "useEffect", description: "Side effects in function components" }, { id: "T-002", name: "useState", description: "State management in function components" }]
   },
-  { 
-    id: "SS-002", 
-    primarySkillId: "PS-002", 
-    primarySkillName: "Node.js", 
-    name: "Express.js", 
-    description: "Fast, unopinionated, minimalist web framework",
-    topics: []
-  },
+  { id: "SS-002", primarySkillId: "PS-002", primarySkillName: "Node.js", name: "Express.js", description: "Fast, unopinionated, minimalist web framework", topics: [] },
+  { id: "SS-003", primarySkillId: "PS-001", primarySkillName: "React", name: "Redux Toolkit", description: "Standard way to write Redux logic", topics: [] },
+  { id: "SS-004", primarySkillId: "PS-001", primarySkillName: "React", name: "Next.js", description: "The React Framework for the Web", topics: [] },
+  { id: "SS-005", primarySkillId: "PS-001", primarySkillName: "React", name: "Framer Motion", description: "Production-ready motion library for React", topics: [] },
+  { id: "SS-006", primarySkillId: "PS-002", primarySkillName: "Node.js", name: "NestJS", description: "A progressive Node.js framework for building efficient, reliable and scalable server-side applications", topics: [] },
+  { id: "SS-007", primarySkillId: "PS-002", primarySkillName: "Node.js", name: "Socket.IO", description: "Bidirectional and low-latency communication for every platform", topics: [] },
+  { id: "SS-008", primarySkillId: "PS-003", primarySkillName: "Python", name: "Django", description: "High-level Python web framework that encourages rapid development", topics: [] },
+  { id: "SS-009", primarySkillId: "PS-003", primarySkillName: "Python", name: "FastAPI", description: "Modern, fast web framework for building APIs with Python", topics: [] },
+  { id: "SS-010", primarySkillId: "PS-003", primarySkillName: "Python", name: "Pandas", description: "Fast, powerful, flexible and easy to use open source data analysis and manipulation tool", topics: [] },
+  { id: "SS-011", primarySkillId: "PS-003", primarySkillName: "Python", name: "Flask", description: "A lightweight WSGI web application framework", topics: [] },
+  { id: "SS-012", primarySkillId: "PS-004", primarySkillName: "Java", name: "Spring Boot", description: "Create stand-alone, production-grade Spring based Applications", topics: [] },
+  { id: "SS-013", primarySkillId: "PS-004", primarySkillName: "Java", name: "Hibernate", description: "Object-relational mapping tool for the Java programming language", topics: [] },
+  { id: "SS-014", primarySkillId: "PS-008", primarySkillName: "Angular", name: "RxJS", description: "Reactive Extensions Library for JavaScript", topics: [] },
+  { id: "SS-015", primarySkillId: "PS-008", primarySkillName: "Angular", name: "NgRx", description: "Reactive State for Angular", topics: [] },
+  { id: "SS-016", primarySkillId: "PS-001", primarySkillName: "React", name: "React Router", description: "Declarative routing for React", topics: [] },
 ];
 
 export default function AdminSecondarySkills() {
@@ -49,6 +51,14 @@ export default function AdminSecondarySkills() {
   // Topic form
   const [topicForm, setTopicForm] = useState({ name: "", description: "" });
   const [topicFormErrors, setTopicFormErrors] = useState({ name: "", description: "" });
+  
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredData = data.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    item.primarySkillName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleReload = () => {
     console.log("Reloading data...");
@@ -172,131 +182,167 @@ export default function AdminSecondarySkills() {
   };
 
   return (
-    <div className="space-y-6 relative">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="space-y-6 md:space-y-8 relative pb-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-bold font-heading text-foreground tracking-tight">Secondary Skills</h2>
-          <p className="text-muted-foreground mt-1">Manage secondary technical skills mapped to primary categories.</p>
+          <h2 className="text-2xl md:text-3xl font-bold font-heading text-foreground tracking-tight">Secondary Skills</h2>
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">Manage secondary technical skills mapped to primary categories.</p>
         </div>
       </div>
 
-      {/* Toolbar */}
+      {/* KPI & Toolbar Section */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white p-4 rounded-2xl shadow-sm border border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4"
+        className="grid grid-cols-1 md:grid-cols-12 gap-4"
       >
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-primary/10 rounded-lg text-primary">
-            <LayoutList className="w-5 h-5" />
+        {/* KPI Card */}
+        <div className="md:col-span-4 lg:col-span-3 bg-gradient-to-br from-primary/5 to-white p-5 rounded-3xl border border-primary/10 shadow-sm relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform">
+            <Code2 className="w-20 h-20 text-primary" />
           </div>
-          <h3 className="font-bold text-foreground">Skills Management</h3>
+          <div className="relative z-10">
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Total Secondary Skills
+            </p>
+            <h3 className="text-4xl font-black text-foreground">{data.length}</h3>
+          </div>
         </div>
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <button 
-            onClick={handleReload}
-            className="flex items-center justify-center gap-2 h-10 px-4 bg-secondary text-secondary-foreground text-sm font-bold rounded-xl hover:bg-black/5 transition-all"
-            title="Reload Data"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span className="hidden sm:inline">Reload</span>
-          </button>
-          <button 
-            onClick={() => {
-              setForm({ primarySkillId: "", name: "", description: "" });
-              setFormErrors({ primarySkillId: "", name: "", description: "" });
-              setShowAddModal(true);
-            }}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 h-10 px-5 bg-primary text-white text-sm font-bold rounded-xl shadow-sm shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
-          >
-            <Plus className="w-4 h-4 shrink-0" />
-            Add Secondary Skill
-          </button>
+
+        {/* Toolbar */}
+        <div className="md:col-span-8 lg:col-span-9 bg-white/80 backdrop-blur-xl p-4 rounded-3xl shadow-sm border border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="relative w-full sm:max-w-md group/input">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground group-focus-within/input:text-primary transition-colors">
+              <Search className="w-5 h-5" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search skills or descriptions..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full h-12 pl-11 pr-4 bg-secondary/30 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all text-foreground"
+            />
+          </div>
+          
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <button 
+              onClick={handleReload}
+              className="flex items-center justify-center gap-2 h-12 px-5 bg-secondary text-secondary-foreground text-sm font-bold rounded-2xl hover:bg-black/5 transition-all active:scale-95 shrink-0"
+              title="Reload Data"
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={() => {
+                setForm({ primarySkillId: "", name: "", description: "" });
+                setFormErrors({ primarySkillId: "", name: "", description: "" });
+                setShowAddModal(true);
+              }}
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white text-sm font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
+            >
+              <Plus className="w-5 h-5 shrink-0" />
+              Add Skill
+            </button>
+          </div>
         </div>
       </motion.div>
 
-      {/* Data Grid */}
+      {/* Grid View */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white rounded-2xl border border-border/50 shadow-sm overflow-hidden hover:shadow-lg hover:border-primary/20 transition-all duration-300"
       >
-        {data.length === 0 ? (
-          <div className="p-16 flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4">
-              <Code2 className="w-8 h-8 text-muted-foreground" />
-            </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">No Data Yet</h3>
-            <p className="text-muted-foreground max-w-sm">No secondary skills found matching your criteria.</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-            <thead className="text-xs text-muted-foreground uppercase bg-secondary/50 border-b border-border/50">
-              <tr>
-                <th className="px-6 py-4 font-bold tracking-widest w-1/5">Primary Skills</th>
-                <th className="px-6 py-4 font-bold tracking-widest w-1/5">Secondary Skills</th>
-                <th className="px-6 py-4 font-bold tracking-widest">Description</th>
-                <th className="px-6 py-4 font-bold tracking-widest text-right w-32">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/50">
-              {data.map((item) => (
-                <tr key={item.id} className="hover:bg-primary/5 transition-colors group">
-                  <td className="px-6 py-4 text-muted-foreground font-medium">
-                    {item.primarySkillName}
-                  </td>
-                  <td className="px-6 py-4 font-bold text-foreground">
-                    {item.name}
-                  </td>
-                  <td className="px-6 py-4 text-muted-foreground">
-                    {item.description}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button 
-                        onClick={() => {
-                          setSelectedSkill(item);
-                          setShowMapTopicModal(true);
-                          setTopicForm({ name: "", description: "" });
-                          setTopicFormErrors({ name: "", description: "" });
-                        }}
-                        className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500 hover:text-white transition-colors"
-                        title="Map Topics"
-                      >
-                        <Map className="w-4 h-4" />
-                      </button>
-                      <button 
-                        onClick={() => {
-                          setSelectedSkill(item);
-                          setForm({ primarySkillId: item.primarySkillId, name: item.name, description: item.description });
-                          setFormErrors({ primarySkillId: "", name: "", description: "" });
-                          setShowEditModal(true);
-                        }}
-                        className="p-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
-                        title="Edit Skill"
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </button>
-                      <button 
-                        onClick={() => {
-                          setSelectedSkill(item);
-                          setShowDeleteModal(true);
-                        }}
-                        className="p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-colors"
-                        title="Delete Skill"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+        <AnimatePresence>
+          {filteredData.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-16 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-border/50"
+            >
+              <div className="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center mb-6">
+                <Code2 className="w-10 h-10 text-muted-foreground" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-2">No Skills Found</h3>
+              <p className="text-muted-foreground max-w-sm">We couldn't find any secondary skills matching your search criteria. Try adjusting your filters or add a new skill.</p>
+            </motion.div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
+              {filteredData.map((item) => (
+                <motion.div 
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="bg-white rounded-2xl p-4 border border-border/50 shadow-sm hover:shadow-md transition-all group flex gap-3 items-start"
+                >
+                  <div className="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+                    <Code2 className="w-5 h-5" />
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start gap-2">
+                      <div>
+                        <h4 className="text-base font-bold text-foreground line-clamp-1" title={item.name}>{item.name}</h4>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">{item.primarySkillName} &bull; {item.id}</p>
+                      </div>
+                      
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 -mt-1 -mr-1">
+                        <button 
+                          onClick={() => {
+                            setSelectedSkill(item);
+                            setShowMapTopicModal(true);
+                            setTopicForm({ name: "", description: "" });
+                            setTopicFormErrors({ name: "", description: "" });
+                          }}
+                          className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500 hover:text-white transition-colors"
+                          title="Map Topics"
+                        >
+                          <Map className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            setSelectedSkill(item);
+                            setForm({ primarySkillId: item.primarySkillId, name: item.name, description: item.description });
+                            setFormErrors({ primarySkillId: "", name: "", description: "" });
+                            setShowEditModal(true);
+                          }}
+                          className="p-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
+                          title="Edit Skill"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            setSelectedSkill(item);
+                            setShowDeleteModal(true);
+                          }}
+                          className="p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-colors"
+                          title="Delete Skill"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
-                  </td>
-                </tr>
+
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-2 leading-relaxed" title={item.description}>
+                      {item.description || "No description provided."}
+                    </p>
+                    {item.topics && item.topics.length > 0 && (
+                      <div className="mt-3 flex gap-2">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-secondary text-secondary-foreground">
+                          {item.topics.length} Topics
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
               ))}
-            </tbody>
-          </table>
-        </div>
-        )}
+            </div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Add Modal */}

@@ -5,8 +5,8 @@ import { SearchableSelect } from "../../components/SearchableSelect";
 import { getStatusBadgeClasses } from "../../../lib/utils";
 
 const MOCK_COMPANIES = [
-  { label: "Acme Corp", value: "acme" },
-  { label: "Global Tech", value: "global_tech" }
+  { label: "Tech Mahindra", value: "techmahindra" },
+  { label: "HCLTech", value: "hcltech" }
 ];
 
 const MOCK_RECRUITERS = [

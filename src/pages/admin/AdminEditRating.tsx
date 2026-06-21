@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, RotateCcw, X, Lock, Unlock, FileEdit, ChevronDown, ChevronUp, Eye, CheckCircle2, Star } from "lucide-react";
+import { Search, RotateCcw, X, Lock, Unlock, FileEdit, ChevronDown, ChevronUp, Eye, CheckCircle2, Star, Code2 } from "lucide-react";
 
 const initialData = [
   { 
@@ -166,7 +166,15 @@ export default function AdminEditRating() {
                   <td className="px-6 py-4 text-muted-foreground">{item.mobile}</td>
                   <td className="px-6 py-4 text-muted-foreground">{item.interviewer}</td>
                   <td className="px-6 py-4 text-muted-foreground">{item.primarySkill}</td>
-                  <td className="px-6 py-4 font-bold text-foreground">{item.rating}</td>
+                  <td className="px-6 py-4">
+                    {item.rating === "Pending" ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-widest bg-destructive/10 text-destructive">
+                        {item.rating}
+                      </span>
+                    ) : (
+                      <span className="font-bold text-destructive text-sm">{item.rating}</span>
+                    )}
+                  </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-end gap-2">
                       <button 
@@ -235,85 +243,88 @@ export default function AdminEditRating() {
                 </button>
               </div>
               
-              <div className="p-6 overflow-y-auto flex-1 space-y-6 bg-white">
+              <div className="p-6 overflow-y-auto flex-1 space-y-6 bg-secondary/10">
                 
-                {/* Info Header - Card Style */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-secondary/30 rounded-2xl border border-border/50">
-                  <div className="space-y-2">
-                    <div>
-                      <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Primary Skill</p>
-                      <p className="text-[13px] font-semibold text-foreground">{selectedInterview.primarySkill}</p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Candidate Email</p>
-                      <p className="text-[13px] font-semibold text-foreground">{selectedInterview.email}</p>
-                    </div>
+                {/* Info Header - Premium Style */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                  <div className="p-4 bg-white rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150" />
+                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Primary Skill</p>
+                    <p className="text-[15px] font-black text-foreground relative z-10">{selectedInterview.primarySkill}</p>
                   </div>
-                  <div className="space-y-2">
-                    <div>
-                      <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Interview Date & Time</p>
-                      <p className="text-[13px] font-semibold text-foreground">{selectedInterview.date}</p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Mobile No</p>
-                      <p className="text-[13px] font-semibold text-foreground">{selectedInterview.mobile}</p>
-                    </div>
+                  <div className="p-4 bg-white rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150" />
+                    <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-1 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Email</p>
+                    <p className="text-sm font-bold text-foreground relative z-10 truncate" title={selectedInterview.email}>{selectedInterview.email}</p>
+                  </div>
+                  <div className="p-4 bg-white rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150" />
+                    <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-1 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Mobile</p>
+                    <p className="text-[15px] font-black text-foreground relative z-10">{selectedInterview.mobile}</p>
+                  </div>
+                  <div className="p-4 bg-white rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150" />
+                    <p className="text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-1 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-500" /> Interview Date & Time</p>
+                    <p className="text-sm font-bold text-foreground relative z-10">{selectedInterview.date}</p>
                   </div>
                 </div>
 
                 {/* References */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-2 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white p-5 rounded-2xl border border-border/50 shadow-sm">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-primary" />
                       Rating Interpretation
                     </h3>
-                    <ul className="text-[12px] text-muted-foreground space-y-1.5">
-                      <li className="flex gap-2"><span className="font-bold text-foreground">1.</span> <span>Know the subject but no good knowledge, need to learn.</span></li>
-                      <li className="flex gap-2"><span className="font-bold text-foreground">2.</span> <span>Know the subject, have knowledge but no good working exp.</span></li>
-                      <li className="flex gap-2"><span className="font-bold text-foreground">3.</span> <span>Have the knowledge and can work independently.</span></li>
-                      <li className="flex gap-2"><span className="font-bold text-foreground">4.</span> <span>Can work and Guide the team also to work.</span></li>
-                      <li className="flex gap-2"><span className="font-bold text-foreground">5.</span> <span>Exceptionally talented in this and is an asset to the team and to organization.</span></li>
+                    <ul className="text-[12px] text-muted-foreground space-y-2">
+                      <li className="flex gap-2.5 items-start"><span className="font-bold text-foreground bg-secondary px-1.5 py-0.5 rounded text-[10px]">1</span> <span className="pt-0.5 leading-tight">Know the subject but no good knowledge, need to learn.</span></li>
+                      <li className="flex gap-2.5 items-start"><span className="font-bold text-foreground bg-secondary px-1.5 py-0.5 rounded text-[10px]">2</span> <span className="pt-0.5 leading-tight">Know the subject, have knowledge but no good working exp.</span></li>
+                      <li className="flex gap-2.5 items-start"><span className="font-bold text-foreground bg-secondary px-1.5 py-0.5 rounded text-[10px]">3</span> <span className="pt-0.5 leading-tight">Have the knowledge and can work independently.</span></li>
+                      <li className="flex gap-2.5 items-start"><span className="font-bold text-foreground bg-secondary px-1.5 py-0.5 rounded text-[10px]">4</span> <span className="pt-0.5 leading-tight">Can work and Guide the team also to work.</span></li>
+                      <li className="flex gap-2.5 items-start"><span className="font-bold text-foreground bg-secondary px-1.5 py-0.5 rounded text-[10px]">5</span> <span className="pt-0.5 leading-tight">Exceptionally talented in this and is an asset to the team.</span></li>
                     </ul>
                   </div>
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-2 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <div className="bg-white p-5 rounded-2xl border border-border/50 shadow-sm flex flex-col">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-primary" />
                       Key Responsibilities
                     </h3>
-                    <div className="bg-secondary/30 rounded-xl p-4 border border-border/50 h-16 flex items-center justify-center text-muted-foreground text-[13px] italic">
+                    <div className="flex-1 bg-secondary/30 rounded-xl p-4 border border-border/50 flex items-center justify-center text-muted-foreground text-[13px] italic">
                       No responsibilities documented for this role.
                     </div>
                   </div>
                 </div>
 
                 {/* Technical Rating Accordion */}
-                <div className="border border-border/50 rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-white rounded-xl border border-border/50 shadow-sm">
                   <button 
-                    onClick={() => setTechExpanded(!techExpanded)}
-                    className="w-full flex items-center justify-between p-4 bg-secondary/20 hover:bg-secondary/40 transition-colors"
+                    onClick={() => {
+                      setTechExpanded(!techExpanded);
+                      if (!techExpanded) setSoftExpanded(false);
+                    }}
+                    className={techExpanded ? "w-full flex items-center justify-between p-4 bg-secondary/30 hover:bg-secondary/50 transition-colors rounded-t-xl" : "w-full flex items-center justify-between p-4 bg-secondary/30 hover:bg-secondary/50 transition-colors rounded-xl"}
                   >
-                    <h4 className="text-sm font-bold text-foreground tracking-widest uppercase">Technical Rating</h4>
+                    <span className="font-bold text-foreground">Technical Rating</span>
                     {techExpanded ? <ChevronUp className="w-5 h-5 text-muted-foreground" /> : <ChevronDown className="w-5 h-5 text-muted-foreground" />}
                   </button>
                   <AnimatePresence>
                     {techExpanded && (
                       <motion.div 
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        className="overflow-hidden border-t border-border/50 bg-white"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden border-t border-border/50"
                       >
-                        <div className="p-4 space-y-4">
+                        <div className="p-6 space-y-6">
                           {selectedInterview.technicalSkills?.map((skill: any, idx: number) => (
-                            <div key={idx} className="grid grid-cols-12 gap-4 items-start">
-                              <div className="col-span-3 text-[13px] font-bold text-foreground pt-2">{skill.name}</div>
-                              <div className="col-span-2">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Rating</label>
-                                <div className="relative">
+                            <div key={idx} className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start bg-white p-4 rounded-xl border border-border/50 shadow-sm hover:border-primary/30 transition-colors">
+                              <div className="lg:col-span-3 text-[14px] font-bold text-foreground lg:pt-2">{skill.name}</div>
+                              <div className="lg:col-span-2">
+                                <div className="relative mt-2">
+                                  <div className="absolute -top-2 left-3 bg-white px-1 text-[10px] font-bold text-muted-foreground z-10">Rating (1-5)</div>
                                   <select 
                                     defaultValue={skill.rating}
-                                    className="w-full h-9 px-3 bg-secondary/30 border border-border/50 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                                    className="w-full h-11 px-3 bg-white border border-border/50 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
                                   >
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -321,17 +332,19 @@ export default function AdminEditRating() {
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                   </select>
-                                  <ChevronDown className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground pointer-events-none" />
+                                  <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-muted-foreground pointer-events-none" />
                                 </div>
                               </div>
-                              <div className="col-span-7">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Comments</label>
-                                <textarea 
-                                  defaultValue={skill.comment}
-                                  rows={1} 
-                                  placeholder="Add comments on this skill..."
-                                  className="w-full p-2.5 bg-secondary/30 border border-border/50 rounded-xl text-[13px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50"
-                                />
+                              <div className="lg:col-span-7">
+                                <div className="relative mt-2">
+                                  <div className="absolute -top-2 left-3 bg-white px-1 text-[10px] font-bold text-muted-foreground z-10">Comments</div>
+                                  <textarea 
+                                    defaultValue={skill.comment}
+                                    rows={1} 
+                                    placeholder="Add comments on this skill..."
+                                    className="w-full p-3 bg-white border border-border/50 rounded-xl text-[13px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50"
+                                  />
+                                </div>
                               </div>
                             </div>
                           ))}
@@ -342,32 +355,35 @@ export default function AdminEditRating() {
                 </div>
 
                 {/* Soft Skill Rating Accordion */}
-                <div className="border border-border/50 rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-white rounded-xl border border-border/50 shadow-sm">
                   <button 
-                    onClick={() => setSoftExpanded(!softExpanded)}
-                    className="w-full flex items-center justify-between p-4 bg-secondary/20 hover:bg-secondary/40 transition-colors"
+                    onClick={() => {
+                      setSoftExpanded(!softExpanded);
+                      if (!softExpanded) setTechExpanded(false);
+                    }}
+                    className={softExpanded ? "w-full flex items-center justify-between p-4 bg-secondary/30 hover:bg-secondary/50 transition-colors rounded-t-xl" : "w-full flex items-center justify-between p-4 bg-secondary/30 hover:bg-secondary/50 transition-colors rounded-xl"}
                   >
-                    <h4 className="text-sm font-bold text-foreground tracking-widest uppercase">Soft Skill Rating</h4>
+                    <span className="font-bold text-foreground">Soft Skill Rating</span>
                     {softExpanded ? <ChevronUp className="w-5 h-5 text-muted-foreground" /> : <ChevronDown className="w-5 h-5 text-muted-foreground" />}
                   </button>
                   <AnimatePresence>
                     {softExpanded && (
                       <motion.div 
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        className="overflow-hidden border-t border-border/50 bg-white"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden border-t border-border/50"
                       >
-                        <div className="p-4 space-y-4">
+                        <div className="p-6 space-y-6">
                           {selectedInterview.softSkills?.map((skill: any, idx: number) => (
-                            <div key={idx} className="grid grid-cols-12 gap-4 items-start">
-                              <div className="col-span-3 text-[13px] font-bold text-foreground pt-2">{skill.name}</div>
-                              <div className="col-span-2">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Rating</label>
-                                <div className="relative">
+                            <div key={idx} className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start bg-white p-4 rounded-xl border border-border/50 shadow-sm hover:border-primary/30 transition-colors">
+                              <div className="lg:col-span-3 text-[14px] font-bold text-foreground lg:pt-2">{skill.name}</div>
+                              <div className="lg:col-span-2">
+                                <div className="relative mt-2">
+                                  <div className="absolute -top-2 left-3 bg-white px-1 text-[10px] font-bold text-muted-foreground z-10">Rating (1-5)</div>
                                   <select 
                                     defaultValue={skill.rating}
-                                    className="w-full h-9 px-3 bg-secondary/30 border border-border/50 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
+                                    className="w-full h-11 px-3 bg-white border border-border/50 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer"
                                   >
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -375,22 +391,24 @@ export default function AdminEditRating() {
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                   </select>
-                                  <ChevronDown className="w-4 h-4 absolute right-3 top-2.5 text-muted-foreground pointer-events-none" />
+                                  <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-muted-foreground pointer-events-none" />
                                 </div>
                               </div>
-                              <div className="col-span-7">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Comments</label>
-                                <textarea 
-                                  defaultValue={skill.comment}
-                                  rows={1} 
-                                  placeholder="Add comments on this skill..."
-                                  className="w-full p-2.5 bg-secondary/30 border border-border/50 rounded-xl text-[13px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50"
-                                />
+                              <div className="lg:col-span-7">
+                                <div className="relative mt-2">
+                                  <div className="absolute -top-2 left-3 bg-white px-1 text-[10px] font-bold text-muted-foreground z-10">Comments</div>
+                                  <textarea 
+                                    defaultValue={skill.comment}
+                                    rows={1} 
+                                    placeholder="Add comments on this skill..."
+                                    className="w-full p-3 bg-white border border-border/50 rounded-xl text-[13px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50"
+                                  />
+                                </div>
                               </div>
                             </div>
                           ))}
                           {(!selectedInterview.softSkills || selectedInterview.softSkills.length === 0) && (
-                            <div className="p-4 text-center text-muted-foreground text-[13px] italic">
+                            <div className="p-4 text-center text-muted-foreground text-[13px] bg-secondary/30 rounded-xl border border-border/50">
                               No soft skills evaluated for this role.
                             </div>
                           )}
@@ -401,48 +419,48 @@ export default function AdminEditRating() {
                 </div>
 
                 {/* Global Comments */}
-                <div>
-                  <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Overall Comments</label>
+                <div className="bg-white p-5 rounded-2xl border border-border/50 shadow-sm">
+                  <label className="text-[11px] font-bold text-foreground uppercase tracking-widest mb-2 block flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" /> Overall Summary & Feedback
+                  </label>
                   <textarea 
                     defaultValue={selectedInterview.overallComment}
-                    rows={2}
+                    rows={3}
                     placeholder="Provide a final summary or overall feedback..."
-                    className="w-full p-3 bg-secondary/30 border border-border/50 rounded-2xl text-[13px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50"
+                    className="w-full p-4 bg-secondary/20 border border-border/50 rounded-xl text-[14px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none placeholder:text-muted-foreground/50 leading-relaxed"
                   />
                 </div>
 
                 {/* Checkboxes */}
-                <div className="flex gap-8">
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <div className="relative flex items-center justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <label className="flex items-center justify-between p-3 border border-border/50 rounded-xl bg-white cursor-pointer hover:border-primary/50 hover:shadow-sm transition-all group">
+                    <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Genuine Interview</span>
+                    <div className="relative flex items-center justify-center shrink-0">
                       <input 
                         type="checkbox" 
-                        defaultChecked={selectedInterview.isGenuine}
-                        className="peer sr-only" 
+                        checked={selectedInterview.isGenuine}
+                        onChange={(e) => setSelectedInterview({...selectedInterview, isGenuine: e.target.checked})}
+                        className="peer sr-only"
                       />
-                      <div className="w-5 h-5 border-2 border-border/80 rounded flex items-center justify-center transition-colors peer-checked:bg-primary peer-checked:border-primary">
-                        <svg className="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
+                      <div className="w-5 h-5 border-2 border-border rounded text-primary flex items-center justify-center transition-colors peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary/50">
+                        {selectedInterview.isGenuine && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                       </div>
                     </div>
-                    <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">Is Genuine</span>
                   </label>
-
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <div className="relative flex items-center justify-center">
+                  
+                  <label className="flex items-center justify-between p-3 border border-border/50 rounded-xl bg-white cursor-pointer hover:border-primary/50 hover:shadow-sm transition-all group">
+                    <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Recommend Candidate</span>
+                    <div className="relative flex items-center justify-center shrink-0">
                       <input 
                         type="checkbox" 
-                        defaultChecked={selectedInterview.recommendNextRound}
-                        className="peer sr-only" 
+                        checked={selectedInterview.recommendNextRound}
+                        onChange={(e) => setSelectedInterview({...selectedInterview, recommendNextRound: e.target.checked})}
+                        className="peer sr-only"
                       />
-                      <div className="w-5 h-5 border-2 border-border/80 rounded flex items-center justify-center transition-colors peer-checked:bg-primary peer-checked:border-primary">
-                        <svg className="w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
+                      <div className="w-5 h-5 border-2 border-border rounded text-primary flex items-center justify-center transition-colors peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary/50">
+                        {selectedInterview.recommendNextRound && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                       </div>
                     </div>
-                    <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">Recommend For Next Round</span>
                   </label>
                 </div>
               </div>
