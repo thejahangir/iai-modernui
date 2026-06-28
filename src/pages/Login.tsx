@@ -44,7 +44,7 @@ export default function Login() {
     const user = authenticateUser(email, password);
     if (user) {
       // Mock successful login
-      navigate(`/dashboard/${user.role.toLowerCase()}`);
+      navigate(`/dashboard/${user.role.toLowerCase().replace(" ", "-")}`);
     } else {
       setError("Invalid credentials. Please check your email and password.");
     }
@@ -98,13 +98,15 @@ export default function Login() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="mb-10 text-left">
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <ShieldCheck className="w-7 h-7 text-primary" />
+            <div className="mb-8 text-left">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-6 h-6 text-primary" />
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-foreground tracking-tight">
+                  Welcome Back
+                </h1>
               </div>
-              <h1 className="text-4xl font-extrabold font-heading text-foreground tracking-tight mb-3">
-                Welcome Back
-              </h1>
               <p className="text-muted-foreground text-lg">
                 Log in to your IAmInterviewed account.
               </p>
@@ -209,20 +211,29 @@ export default function Login() {
             </form>
 
             {/* Quick Demo Logins */}
-            <div className="mt-10 pt-8 border-t border-border">
-              <p className="text-sm font-medium text-muted-foreground mb-4 text-center">
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="text-sm font-medium text-muted-foreground mb-4">
                 Demo Accounts (Click to auto-fill)
               </p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {(["Admin", "SuperAdmin", "Recruiter", "Vendor", "Candidate", "Interviewer", "Client"] as UserRole[]).map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => handleDemoFill(r)}
-                    type="button"
-                    className="px-3 py-1.5 text-xs font-semibold bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors border border-border/50"
-                  >
-                    {r}
-                  </button>
+              <div className="flex flex-col gap-3">
+                {[
+                  ["SuperAdmin"],
+                  ["Antern Client", "Antern Recruiter"],
+                  ["Vendor", "Vendor Recruiter"],
+                  ["Interviewer", "Candidate"]
+                ].map((row, idx) => (
+                  <div key={idx} className="flex flex-wrap gap-2 justify-start">
+                    {(row as UserRole[]).map((r) => (
+                      <button
+                        key={r}
+                        onClick={() => handleDemoFill(r)}
+                        type="button"
+                        className="px-3 py-1.5 text-xs font-semibold bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors border border-border/50"
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>

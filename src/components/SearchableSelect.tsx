@@ -32,8 +32,17 @@ export function SearchableSelect({
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   // Close on outside click and scroll
   useEffect(() => {
+    if (isOpen && inputRef.current) {
+      // Focus input without scrolling the page
+      setTimeout(() => {
+        inputRef.current?.focus({ preventScroll: true });
+      }, 10);
+    }
+
     const handleOutsideClick = (event: MouseEvent) => {
       // If clicking inside the portal, don't close
       const dropdownMenu = document.getElementById("searchable-select-dropdown");
@@ -62,7 +71,7 @@ export function SearchableSelect({
       document.removeEventListener("mousedown", handleOutsideClick);
       window.removeEventListener("scroll", handleScroll, true);
     };
-  }, []);
+  }, [isOpen]);
 
   // Update position when opened or resized
   useLayoutEffect(() => {
@@ -102,7 +111,7 @@ export function SearchableSelect({
       <div 
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-full h-full flex items-center justify-between bg-secondary/40 border border-border/50 rounded-xl text-sm font-medium transition-all cursor-pointer hover:border-primary/40 text-foreground",
+          "w-full h-full py-2.5 flex items-center justify-between bg-secondary/40 border border-border/50 rounded-xl text-sm font-medium transition-all cursor-pointer hover:border-primary/40 text-foreground",
           isOpen ? "ring-2 ring-primary/20 border-primary" : "",
           icon ? "pl-10 pr-4" : "px-4"
         )}
@@ -139,8 +148,8 @@ export function SearchableSelect({
                 <div className="relative">
                   <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
+                    ref={inputRef}
                     type="text"
-                    autoFocus
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search..."
@@ -151,7 +160,7 @@ export function SearchableSelect({
               </div>
 
               {/* Options List */}
-              <div className="max-h-60 overflow-y-auto p-1 flex-1">
+              <div className="max-h-80 overflow-y-auto p-1 flex-1">
                 {/* Clear Selection Option */}
                 {value && (
                   <>

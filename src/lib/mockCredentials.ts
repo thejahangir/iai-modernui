@@ -1,4 +1,4 @@
-export type UserRole = "Admin" | "SuperAdmin" | "Recruiter" | "Vendor" | "Candidate" | "Interviewer" | "Client";
+export type UserRole = "SuperAdmin" | "Vendor Recruiter" | "Antern Recruiter" | "Vendor" | "Candidate" | "Interviewer" | "Antern Client";
 
 export interface MockUser {
   email: string;
@@ -9,21 +9,21 @@ export interface MockUser {
 
 export const mockUsers: MockUser[] = [
   {
-    email: "admin@iaminterviewed.com",
-    passwordHash: "admin123",
-    role: "Admin",
-    name: "System Admin"
-  },
-  {
     email: "superadmin@iaminterviewed.com",
     passwordHash: "superadmin123",
     role: "SuperAdmin",
-    name: "Global SuperAdmin"
+    name: "System SuperAdmin"
+  },
+  {
+    email: "vendorrecruiter@iaminterviewed.com",
+    passwordHash: "vendorrecruiter123",
+    role: "Vendor Recruiter",
+    name: "Global Vendor Recruiter"
   },
   {
     email: "recruiter@company.com",
     passwordHash: "recruiter123",
-    role: "Recruiter",
+    role: "Antern Recruiter",
     name: "Aarohi Recruiter"
   },
   {
@@ -47,7 +47,7 @@ export const mockUsers: MockUser[] = [
   {
     email: "client@company.com",
     passwordHash: "client123",
-    role: "Client",
+    role: "Antern Client",
     name: "Esha Client"
   }
 ];
