@@ -50,7 +50,7 @@ export default function AnternRecruiterInterviewProcess() {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <button onClick={() => navigate("/dashboard/recruiter/post-job")} className="hover:text-primary transition-colors">Post Job</button>
+            <button onClick={() => navigate("/dashboard/antern-recruiter/post-job")} className="hover:text-primary transition-colors">Post Job</button>
             <ChevronRight className="w-4 h-4" />
             <span className="text-foreground font-medium">Interview Process</span>
           </div>

@@ -330,7 +330,7 @@ export default function AnternRecruiterAllPostings() {
 
                 <div className="pt-2 mt-auto grid grid-cols-2 gap-2">
                   <button 
-                    onClick={() => navigate(`/dashboard/recruiter/postings/${posting.id}/profiles`)}
+                    onClick={() => navigate(`/dashboard/antern-recruiter/postings/${posting.id}/profiles`)}
                     className="w-full flex items-center justify-center gap-1.5 py-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 rounded-lg text-[11px] sm:text-xs font-bold transition-colors"
                   >
                     <UserPlus className="w-3.5 h-3.5" />

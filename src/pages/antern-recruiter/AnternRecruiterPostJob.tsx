@@ -375,7 +375,7 @@ export default function AnternRecruiterPostJob() {
                         onEdit={(job) => handleEditJob(job)}
                         onAddVendor={(job) => handleAddVendor(job)}
                         onEscalation={(job) => handleEscalation(job)}
-                        onInterviewProcess={() => { navigate("/dashboard/recruiter/interview-process"); }}
+                        onInterviewProcess={() => { navigate("/dashboard/antern-recruiter/interview-process"); }}
                       />
                     </div>
                   </td>

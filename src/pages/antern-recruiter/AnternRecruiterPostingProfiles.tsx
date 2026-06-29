@@ -167,7 +167,7 @@ export default function AnternRecruiterPostingProfiles() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <button 
-            onClick={() => navigate("/dashboard/recruiter/postings")}
+            onClick={() => navigate("/dashboard/antern-recruiter/postings")}
             className="flex items-center text-sm font-medium text-slate-500 hover:text-primary mb-2 transition-colors"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
@@ -240,7 +240,7 @@ export default function AnternRecruiterPostingProfiles() {
           ].map((item, idx, arr) => (
             <div key={idx} className="flex items-center shrink-0">
               <button 
-                onClick={() => navigate(`/dashboard/recruiter/postings/${id}/candidates/${item.path}`)}
+                onClick={() => navigate(`/dashboard/antern-recruiter/postings/${id}/candidates/${item.path}`)}
                 className="flex flex-col items-center justify-center gap-1.5 group px-2 sm:px-4 cursor-pointer"
               >
                 <div className={`w-12 h-12 rounded-full border border-transparent group-hover:${item.border} flex items-center justify-center ${item.bg} ${item.color} group-hover:scale-110 transition-all duration-300 shadow-sm`}>
