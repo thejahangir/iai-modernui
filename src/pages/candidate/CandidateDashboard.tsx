@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 
 // Mock Data
 const candidateProfile = {
-  name: 'Rahul Sharma',
+  name: 'Jahangir Alam',
   designation: 'Senior Frontend Engineer',
   primarySkill: 'React.js',
   location: 'Bangalore, India',

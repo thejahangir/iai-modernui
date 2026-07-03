@@ -78,6 +78,16 @@ import VendorRecruiterDashboard from "./pages/vendor-recruiter/VendorRecruiterDa
 import VendorRecruiterAllProfiles from "./pages/vendor-recruiter/VendorRecruiterAllProfiles";
 import VendorRecruiterAllPostings from "./pages/vendor-recruiter/VendorRecruiterAllPostings";
 
+import AccountManagerLayout from "./layouts/AccountManagerLayout";
+import AccountManagerDashboard from "./pages/account-manager/AccountManagerDashboard";
+import AccountManagerAllPostings from "./pages/account-manager/AccountManagerAllPostings";
+import AccountManagerClientEscalation from "./pages/account-manager/AccountManagerClientEscalation";
+import AccountManagerAddProfiles from "./pages/account-manager/AccountManagerAddProfiles";
+import AccountManagerAllProfiles from "./pages/account-manager/AccountManagerAllProfiles";
+import AccountManagerPostJob from "./pages/account-manager/AccountManagerPostJob";
+import AccountManagerViewRating from "./pages/account-manager/AccountManagerViewRating";
+import AccountManagerProfilesDashboard from "./pages/account-manager/AccountManagerProfilesDashboard";
+
 export default function App() {
   return (
     <Routes>
@@ -183,6 +193,19 @@ export default function App() {
             <Route path="postings" element={<VendorRecruiterAllPostings />} />
             <Route path="profiles" element={<VendorRecruiterAllProfiles />} />
             <Route path="*" element={<div className="p-8 text-center text-muted-foreground"><h2 className="text-2xl font-bold mb-2">Coming Soon</h2><p>This vendor recruiter page is under construction.</p></div>} />
+          </Route>
+
+          {/* Account Manager Routes */}
+          <Route path="/dashboard/account-manager" element={<AccountManagerLayout />}>
+            <Route index element={<AccountManagerDashboard />} />
+            <Route path="postings" element={<AccountManagerAllPostings />} />
+            <Route path="client-escalation" element={<AccountManagerClientEscalation />} />
+            <Route path="company/add-profiles" element={<AccountManagerAddProfiles />} />
+            <Route path="company/all-profiles" element={<AccountManagerAllProfiles />} />
+            <Route path="company/post-job" element={<AccountManagerPostJob />} />
+            <Route path="company/view-rating" element={<AccountManagerViewRating />} />
+            <Route path="company/profiles-dashboard" element={<AccountManagerProfilesDashboard />} />
+            <Route path="*" element={<div className="p-8 text-center text-muted-foreground"><h2 className="text-2xl font-bold mb-2">Coming Soon</h2><p>This account manager page is under construction.</p></div>} />
           </Route>
 
           {/* Placeholder for other roles */}

@@ -50,15 +50,20 @@
     --color-brand-blue: #0085F7;
     --color-brand-green: #00A94B;
     --color-brand-black: #000000;
+
+    --color-slate-950: #000000;
+    --color-slate-900: #050505;
+    --color-slate-800: #111111;
+    --color-slate-700: #222222;
 }
 
 :root {
     --background: oklch(0.99 0.005 240);
-    --foreground: oklch(0.12 0.01 240);
+    --foreground: #000000;
     --card: rgba(255, 255, 255, 0.6);
-    --card-foreground: oklch(0.12 0.01 240);
+    --card-foreground: #000000;
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.12 0.01 240);
+    --popover-foreground: #000000;
     --primary: #0085F7; 
     --primary-foreground: #ffffff;
     --secondary: oklch(0.96 0.01 240);

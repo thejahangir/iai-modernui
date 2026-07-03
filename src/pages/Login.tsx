@@ -217,7 +217,7 @@ export default function Login() {
               </p>
               <div className="flex flex-col gap-3">
                 {[
-                  ["SuperAdmin"],
+                  ["SuperAdmin", "Account Manager"],
                   ["Antern Client", "Antern Recruiter"],
                   ["Vendor", "Vendor Recruiter"],
                   ["Interviewer", "Candidate"]

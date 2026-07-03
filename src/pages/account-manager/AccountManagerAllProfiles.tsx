@@ -82,7 +82,7 @@ const MOCK_PROFILES = Array.from({ length: 65 }).map((_, i) => {
   };
 });
 
-export default function AnternClientAllProfiles() {
+export default function AccountManagerAllProfiles() {
   const [profiles, setProfiles] = useState(MOCK_PROFILES);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"card" | "grid">("card");
@@ -119,7 +119,7 @@ export default function AnternClientAllProfiles() {
 
   // Modals
   // Add a simple state for the customizable vendor logo
-  const [vendorLogoUrl, setVendorLogoUrl] = useState<string>("https://ui-avatars.com/api/?name=Vendor+Corp&background=eef2ff&color=4f46e5&rounded=true&bold=true");
+  const [vendorLogoUrl, setVendorLogoUrl] = useState<string>("https://upload.wikimedia.org/wikipedia/commons/0/0e/Tata_Consultancy_Services_old_logo.svg");
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
