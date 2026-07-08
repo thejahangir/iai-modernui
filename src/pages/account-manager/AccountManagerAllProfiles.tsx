@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
@@ -1351,3 +1352,4 @@ export default function AccountManagerAllProfiles() {
     </div>
   );
 }
+
