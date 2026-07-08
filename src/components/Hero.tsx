@@ -27,10 +27,10 @@ const Hero = () => {
               The Future of Technical Hiring
             </Badge>
             
-            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight font-heading leading-[1.1] mb-6 text-balance">
-              Hire <span className="text-primary">Faster</span>. <br />
-              Hire <span className="text-primary">Smarter</span>. <br />
-              With Experts.
+            <h1 className="text-4xl lg:text-6xl font-extrabold tracking-tight font-heading leading-[1.1] mb-6 text-balance">
+              Technical  <span className="text-primary">Interviews</span> <br />
+              On  <span className="text-primary">Demand</span> <br />
+              <span className="text-3xl lg:text-5xl text-muted-foreground">With Experts.</span>
             </h1>
             
             <p className="text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed">
@@ -177,7 +177,7 @@ const Hero = () => {
               transition={{ delay: 1.2 }}
               className="absolute -top-6 -right-6 bg-accent p-4 rounded-2xl shadow-xl shadow-accent/20 z-20"
             >
-              <p className="text-sm font-black text-foreground">+82% Faster Placement</p>
+              <p className="text-sm font-medium text-white">+82% Faster Placement</p>
             </motion.div>
 
             {/* Decorative Shapes */}
