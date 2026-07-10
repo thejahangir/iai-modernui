@@ -84,30 +84,30 @@ export default function CandidateInterviewTips() {
             <section className="space-y-6">
               <div className="flex items-center gap-4 border-b border-slate-200 pb-4">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                  <Cpu className="w-6 h-6" />
+                  <Lightbulb className="w-6 h-6" />
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900 font-heading">2. Conquering the Technical Screen</h2>
+                <h2 className="text-3xl font-bold text-slate-900 font-heading">2. Asking the Right Questions</h2>
               </div>
               <div className="prose prose-lg prose-slate max-w-none text-slate-600">
                 <p>
-                  Technical interviews (often involving Data Structures and Algorithms) are highly structured. Interviewers are evaluating your problem-solving process, not just whether you can write compiling code. Follow this exact sequence when presented with a problem:
+                  When the interviewer asks, "Do you have any questions for me?", never say no. This is your opportunity to interview them and demonstrate your deep interest in the role and company culture.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                   <div className="bg-white border border-slate-200 p-6 rounded-2xl">
-                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 1. Clarify & Constrain</h4>
-                    <p className="text-sm">Never start coding immediately. Repeat the question back. Ask about edge cases: "Can the array be empty?", "Are there negative numbers?", "Does it fit in memory?"</p>
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><MessageCircle className="w-5 h-5 text-[#0085F7]" /> The Day-to-Day</h4>
+                    <p className="text-sm">"What does a typical day look like for someone in this role?" or "What are the most immediate projects I'd be working on?"</p>
                   </div>
                   <div className="bg-white border border-slate-200 p-6 rounded-2xl">
-                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 2. Brute Force First</h4>
-                    <p className="text-sm">State the most obvious, naive solution. "The brute force approach would be O(n^2) by using nested loops." This guarantees you have a baseline solution.</p>
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><MessageCircle className="w-5 h-5 text-[#0085F7]" /> Success Metrics</h4>
+                    <p className="text-sm">"How is success measured in this role?" or "What would you expect me to have accomplished in my first 90 days?"</p>
                   </div>
                   <div className="bg-white border border-slate-200 p-6 rounded-2xl">
-                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 3. Optimize (Big O)</h4>
-                    <p className="text-sm">Before writing code, discuss how you can improve the time or space complexity. Can you use a HashMap? Two pointers? Explain the trade-offs.</p>
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><MessageCircle className="w-5 h-5 text-[#0085F7]" /> Company Culture</h4>
+                    <p className="text-sm">"How does the team handle conflict?" or "What is your favorite part about working here, and what is the biggest challenge?"</p>
                   </div>
                   <div className="bg-white border border-slate-200 p-6 rounded-2xl">
-                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 4. Dry Run</h4>
-                    <p className="text-sm">After writing your code, manually trace through it with a small example input. This catches 90% of off-by-one errors and shows meticulousness.</p>
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><MessageCircle className="w-5 h-5 text-[#0085F7]" /> Future Growth</h4>
+                    <p className="text-sm">"Where do you see the company/team going in the next 1-3 years?" This shows you are thinking long-term.</p>
                   </div>
                 </div>
               </div>
@@ -145,6 +145,39 @@ export default function CandidateInterviewTips() {
               </div>
             </section>
 
+            {/* Section 4 */}
+            <section className="space-y-6">
+              <div className="flex items-center gap-4 border-b border-slate-200 pb-4">
+                <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center">
+                  <Award className="w-6 h-6" />
+                </div>
+                <h2 className="text-3xl font-bold text-slate-900 font-heading">4. Following Up & Negotiation</h2>
+              </div>
+              <div className="prose prose-lg prose-slate max-w-none text-slate-600">
+                <p>
+                  The interview isn't over when you leave the room. How you follow up and handle the offer stage is just as critical as your performance during the interview itself.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                  <div className="bg-white border border-slate-200 p-6 rounded-2xl">
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 1. The Thank You Note</h4>
+                    <p className="text-sm">Send a concise thank-you email within 24 hours. Reference a specific conversation point to make it memorable. Reiterate your interest in the position.</p>
+                  </div>
+                  <div className="bg-white border border-slate-200 p-6 rounded-2xl">
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 2. Market Research</h4>
+                    <p className="text-sm">Before the offer arrives, know your worth. Research salary bands for your role and location using platforms like Glassdoor and Levels.fyi.</p>
+                  </div>
+                  <div className="bg-white border border-slate-200 p-6 rounded-2xl">
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 3. Never Give the First Number</h4>
+                    <p className="text-sm">If asked about salary expectations early on, pivot gracefully: "I'm looking for a competitive package, but right now I'm most focused on finding the right fit."</p>
+                  </div>
+                  <div className="bg-white border border-slate-200 p-6 rounded-2xl">
+                    <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-500" /> 4. Negotiate the Total Package</h4>
+                    <p className="text-sm">Salary is only one part. You can negotiate sign-on bonuses, equity, remote work flexibility, extra PTO, and early review timelines.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
           </div>
 
           {/* Right Sidebar - Sticky Navigation & Resources */}
@@ -158,22 +191,22 @@ export default function CandidateInterviewTips() {
               <div className="space-y-3">
                 <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-colors group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center"><Code className="w-4 h-4"/></div>
-                    <span className="font-medium text-slate-700">LeetCode</span>
+                    <div className="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center"><Library className="w-4 h-4"/></div>
+                    <span className="font-medium text-slate-700">Glassdoor</span>
                   </div>
                   <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#0085F7]" />
                 </a>
                 <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-colors group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center"><FileText className="w-4 h-4"/></div>
-                    <span className="font-medium text-slate-700">ByteByteGo</span>
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center"><Users className="w-4 h-4"/></div>
+                    <span className="font-medium text-slate-700">LinkedIn Learning</span>
                   </div>
                   <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#0085F7]" />
                 </a>
                 <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-colors group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-500 flex items-center justify-center"><Video className="w-4 h-4"/></div>
-                    <span className="font-medium text-slate-700">Pramp (Mock)</span>
+                    <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center"><FileText className="w-4 h-4"/></div>
+                    <span className="font-medium text-slate-700">Harvard Business Review</span>
                   </div>
                   <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#0085F7]" />
                 </a>

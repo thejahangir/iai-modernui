@@ -13,7 +13,8 @@ import {
   CheckCircle,
   Lightbulb,
   Award,
-  ChevronRight
+  ChevronRight,
+  XCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -47,12 +48,36 @@ const upcomingInterviews = [
 
 const completedInterviews = [
   {
+    id: 'INT-99',
+    date: 'Jan 10, 2026',
+    time: '01:00 PM',
+    skills: 'HTML/CSS',
+    interviewer: 'Old Interviewer',
+    status: 'Passed'
+  },
+  {
     id: 'INT-00',
     date: 'Jun 24, 2026',
     time: '11:00 AM',
     skills: 'Frontend Basics',
     interviewer: 'Sneha Gupta',
     status: 'Passed'
+  },
+  {
+    id: 'INT-01',
+    date: 'Jun 10, 2026',
+    time: '02:30 PM',
+    skills: 'React.js Advanced',
+    interviewer: 'Vikram Singh',
+    status: 'Failed'
+  },
+  {
+    id: 'INT-02',
+    date: 'May 15, 2026',
+    time: '10:00 AM',
+    skills: 'System Design',
+    interviewer: 'Priya Patel',
+    status: 'In Review'
   }
 ];
 
@@ -60,6 +85,7 @@ export default function CandidateDashboard() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [resumeLastUpdated, setResumeLastUpdated] = useState('2 days ago');
+  const [currentCompletedIndex, setCurrentCompletedIndex] = useState(0);
 
   const handleDownloadResume = () => {
     // Mock download behavior
@@ -250,34 +276,63 @@ export default function CandidateDashboard() {
 
           {/* Completed Interviews */}
           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60">
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-6">
-              <CheckCircle className="w-5 h-5 text-emerald-500" />
-              My Completed Interviews
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-emerald-500" />
+                My Completed Interviews
+              </h2>
+              {completedInterviews.length > 1 && (
+                <div className="flex items-center gap-1.5">
+                  {completedInterviews.slice(-3).map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentCompletedIndex(idx)}
+                      className={cn(
+                        "w-2 h-2 rounded-full transition-all",
+                        currentCompletedIndex === idx ? "bg-emerald-500 w-4" : "bg-slate-200 hover:bg-slate-300"
+                      )}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
             
-            <div className="space-y-4 max-h-[350px] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
-              {completedInterviews.map((interview) => (
-                <div key={interview.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-sm hover:border-slate-200 transition-all gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center shrink-0 border border-slate-200">
-                      <Calendar className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-800">{interview.date} at {interview.time}</p>
-                      <p className="text-xs font-semibold text-slate-500 mt-0.5">Interviewer: <span className="text-slate-700">{interview.interviewer}</span></p>
-                      <div className="inline-flex items-center gap-1 mt-2">
-                        <span className="px-2 py-0.5 bg-slate-200/50 text-slate-600 rounded text-[10px] font-bold uppercase tracking-wider">
-                          {interview.skills}
-                        </span>
+            <div className="relative overflow-hidden rounded-2xl border border-slate-100 bg-slate-50/50">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out" 
+                style={{ transform: `translateX(-${currentCompletedIndex * 100}%)` }}
+              >
+                {completedInterviews.slice(-3).map((interview) => (
+                  <div key={interview.id} className="w-full shrink-0 flex flex-col sm:flex-row sm:items-center justify-between p-6 gap-4">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-white text-slate-400 flex items-center justify-center shrink-0 border border-slate-200 shadow-sm">
+                        <Calendar className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-slate-800">{interview.date} at {interview.time}</p>
+                        <p className="text-xs font-semibold text-slate-500 mt-0.5">Interviewer: <span className="text-slate-700">{interview.interviewer}</span></p>
+                        <div className="inline-flex items-center gap-1 mt-3">
+                          <span className="px-2 py-0.5 bg-white text-slate-600 border border-slate-200 rounded text-[10px] font-bold uppercase tracking-wider">
+                            {interview.skills}
+                          </span>
+                        </div>
                       </div>
                     </div>
+                    <div className={cn(
+                      "w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold border shrink-0",
+                      interview.status === 'Passed' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
+                      interview.status === 'Failed' ? "bg-red-50 text-red-600 border-red-100" :
+                      "bg-amber-50 text-amber-600 border-amber-100"
+                    )}>
+                      {interview.status === 'Passed' && <CheckCircle className="w-4 h-4" />}
+                      {interview.status === 'Failed' && <XCircle className="w-4 h-4" />}
+                      {interview.status === 'In Review' && <Clock className="w-4 h-4" />}
+                      {interview.status}
+                    </div>
                   </div>
-                  <div className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-bold border border-emerald-100 shrink-0">
-                    <CheckCircle className="w-4 h-4" />
-                    {interview.status}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
